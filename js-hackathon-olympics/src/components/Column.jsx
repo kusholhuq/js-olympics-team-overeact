@@ -8,11 +8,6 @@ export default class Column extends React.Component {
     }
   }
 
-  addTask(event){
-    event.preventDefault();
-
-  }
-
   render() {
     return (
       <div className='w-25 vh-100 border'>

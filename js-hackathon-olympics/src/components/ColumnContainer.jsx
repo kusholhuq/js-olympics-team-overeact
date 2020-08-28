@@ -6,6 +6,7 @@ export default class ColumnContainer extends React.Component {
     super(props);
     this.state = {
       columnCount: 3,
+      taskCount: 3,
       columns: [
         {
         name: 'Todo',
@@ -25,6 +26,7 @@ export default class ColumnContainer extends React.Component {
       ]
     }
     this.addColumn = this.addColumn.bind(this)
+    this.addTask = this.addTask.bind(this)
   }
 
   addColumn(event){
@@ -39,10 +41,15 @@ export default class ColumnContainer extends React.Component {
     this.setState(state=>({columns: newColumn, columnCount: this.state.columnCount+1}))
   }
 
-  addTask(event) {
+  addTask(event, columnId) {
     event.preventDefault();
-    const column = this.state.columns.slice()
-
+    const columns = this.state.columns.slice()
+    const column = columns.filter(col=>{
+      return col.columnId === columnId
+    })
+    column.content.push({
+      task: 'Added Task', taskId: this.state.taskCount +1
+    })
   }
 
   render(){
