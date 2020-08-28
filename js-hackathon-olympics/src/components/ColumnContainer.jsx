@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default class ColumnContainer extends React.Component {
-  construct(props){
+  constructor(props){
     super(props);
     this.state = {
       columnCount: 3
