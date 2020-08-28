@@ -39,20 +39,6 @@ export default class ColumnContainer extends React.Component {
             )
           })
         }
-
-
-
-
-
-          {/* <div className='col p-0'>
-            <Column/>
-          </div>
-          <div className='col p-0'>
-            <Column/>
-            </div>
-          <div className='col p-0'>
-            <Column/>
-            </div> */}
         </div>
       </div>
     )
