@@ -14,6 +14,9 @@ export default class Column extends React.Component {
         <header className='border mx-0 w-100 d-flex justify-content-center'>
           {this.props.title}
         </header>
+        <div className='h-10'>
+          <div className="fas fa-plus"></div>
+        </div>
         <div className='mx-0 w-100 d-flex justify-content-center'>
           {
           this.props.tasks.map(content=>{
