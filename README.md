@@ -1,2 +1,2 @@
 # js-olympics-team-overeact
-A shared workspace for team overeacts js olympics hackathon submission
+A shared workspace for team overeact's js olympics hackathon submission
