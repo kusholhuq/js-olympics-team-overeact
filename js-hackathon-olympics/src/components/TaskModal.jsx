@@ -14,7 +14,7 @@ export default class TaskModal extends React.Component {
         <div className='modal-contents m-auto bg-white border rounded p-3 task-modal'>
           <h3 className='text-center'>this.props.task.title</h3>
           <p className='text-center'>this.props.task.description</p>
-          <button className="btn btn-danger">Close</button>
+          <button className="btn btn-danger" onClick={this.props.closeModal}>Close</button>
         </div>
       </div>
     )

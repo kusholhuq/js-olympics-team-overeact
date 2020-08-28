@@ -39,7 +39,7 @@ export default class ColumnContainer extends React.Component {
             <div className='col'>Column2</div>
             <div className='col'>Column2</div>
           </div>
-          <TaskModal></TaskModal>
+          <TaskModal closeModal={this.closeModal}></TaskModal>
         </div>
       )
     }
