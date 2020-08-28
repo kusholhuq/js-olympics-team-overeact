@@ -1,11 +1,18 @@
 import React from 'react';
+import TaskModal from './TaskModal';
 import Column from './Column';
 
+
 export default class ColumnContainer extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       columnCount: 3,
+      showModal: true,
+      selectedTaskDetails:{
+        title:'',
+        description:''
+      },
       columns: [
         {
         name: 'Todo',
@@ -21,10 +28,44 @@ export default class ColumnContainer extends React.Component {
         }
       ]
     }
+    this.closeModal = this.closeModal.bind(this);
+    this.getTaskDetails = this.getTaskDetails.bind(this);
   }
 
+  closeModal(){
+    this.setState({showModal:false})
+  }
+
+  getTaskDetails(task){
+    this.setState({
+      selectedTaskDetails:{
+        title:task.title,
+        description:task.description
+      },
+      showModal:true
+    });
+  }
   render(){
+    if (this.state.showModal){
     return (
+      <div className='container'>
+        <div className='d-flex flex-wrap justify-content-center'>
+          {
+          this.state.columns.map(column=>{
+            return (
+              <Column
+              className = "col d-flex"
+              key = {column.columnId}
+              title = {column.name}
+              tasks = {column.content}
+              />
+            )
+          }
+       <TaskModal closeModal={this.closeModal}></TaskModal>
+         )
+    } else {
+            
+      return (
       <div className='container'>
         <div className='d-flex flex-wrap justify-content-center'>
           {
@@ -40,7 +81,8 @@ export default class ColumnContainer extends React.Component {
           })
         }
         </div>
-      </div>
-    )
+      )
+    }
+    }
   }
 }
