@@ -9,14 +9,14 @@ export default class ColumnContainer extends React.Component {
     this.state = {
       columnCount: 3,
       showModal: true,
-      selectedTaskDetails:{
-        title:'',
-        description:''
+      selectedTaskDetails: {
+        title: '',
+        description: ''
       },
       columns: [
         {
-        name: 'Todo',
-        content: [{task: 'Finish amazing app', taskId: 1}]
+          name: 'Todo',
+          content: [{ task: 'Finish amazing app', taskId: 1 }]
         },
         {
           name: 'In-Progress',
@@ -32,57 +32,60 @@ export default class ColumnContainer extends React.Component {
     this.getTaskDetails = this.getTaskDetails.bind(this);
   }
 
-  closeModal(){
-    this.setState({showModal:false})
+  closeModal() {
+    this.setState({ showModal: false })
   }
 
-  getTaskDetails(task){
+  getTaskDetails(task) {
     this.setState({
-      selectedTaskDetails:{
-        title:task.title,
-        description:task.description
+      selectedTaskDetails: {
+        title: task.title,
+        description: task.description
       },
-      showModal:true
+      showModal: true
     });
   }
-  render(){
-    if (this.state.showModal){
-    return (
-      <div className='container'>
-        <div className='d-flex flex-wrap justify-content-center'>
-          {
-          this.state.columns.map(column=>{
-            return (
-              <Column
-              className = "col d-flex"
-              key = {column.columnId}
-              title = {column.name}
-              tasks = {column.content}
-              />
-            )
-          }
-       <TaskModal closeModal={this.closeModal}></TaskModal>
-         )
-    } else {
-            
+  render() {
+    if (this.state.showModal) {
       return (
-      <div className='container'>
-        <div className='d-flex flex-wrap justify-content-center'>
-          {
-          this.state.columns.map(column=>{
-            return (
-              <Column
-              className = "col d-flex"
-              key = {column.columnId}
-              title = {column.name}
-              tasks = {column.content}
-              />
-            )
-          })
-        }
+        <div className='container'>
+          <div className='d-flex flex-wrap justify-content-center'>
+            {
+              this.state.columns.map(column => {
+                return (
+                  <Column
+                    className="col d-flex"
+                    key={column.columnId}
+                    title={column.name}
+                    tasks={column.content}
+                  />
+                )
+              }
+              )}
+            < TaskModal closeModal={this.closeModal}></TaskModal>
+          </div>
+        </div >
+      )
+    } else {
+
+      return (
+        <div className='container'>
+          <div className='d-flex flex-wrap justify-content-center'>
+            {
+              this.state.columns.map(column => {
+                return (
+                  <Column
+                    className="col d-flex"
+                    key={column.columnId}
+                    title={column.name}
+                    tasks={column.content}
+                  />
+                )
+              })
+            }
+          </div>
         </div>
       )
-    }
     }
   }
 }
