@@ -1,4 +1,5 @@
 import React from 'react';
+import Column from './Column';
 
 export default class ColumnContainer extends React.Component {
   constructor(props){
@@ -12,9 +13,11 @@ export default class ColumnContainer extends React.Component {
     return (
       <div className='container'>
         <div className='row d-flex'>
-          <div className='col'>Column1</div>
-          <div className='col'>Column2</div>
-          <div className='col'>Column2</div>
+          <div className='col border'>
+            <Column/>
+          </div>
+          <div className='col border'>Column2</div>
+          <div className='col border'>Column2</div>
         </div>
       </div>
     )
