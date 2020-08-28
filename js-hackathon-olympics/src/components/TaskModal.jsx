@@ -12,9 +12,16 @@ export default class TaskModal extends React.Component {
     return(
       <div className='backdrop d-flex'>
         <div className='modal-contents m-auto bg-white border rounded p-3 task-modal'>
-          <h3 className='text-center'>this.props.task.title</h3>
-          <p className='text-center'>this.props.task.description</p>
-          <button className="btn btn-danger" onClick={this.props.closeModal}>Close</button>
+          <div className="d-flex justify-content-between btn-footer">
+            <button className="btn btn-primary mb-2">Complete</button>
+            <button className="btn btn-danger mb-2" onClick={this.props.closeModal}>Close</button>
+
+          </div>
+          <h3 className='mt-3'>this.props.task.title</h3>
+          <p className=''>this.props.task.description</p>
+          <p>+ Add checklist item</p>
+
+
         </div>
       </div>
     )
