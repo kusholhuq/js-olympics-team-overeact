@@ -1,5 +1,7 @@
 import React from 'react';
 import TaskModal from './TaskModal';
+import Column from './Column';
+
 
 export default class ColumnContainer extends React.Component {
   constructor(props) {
@@ -10,7 +12,21 @@ export default class ColumnContainer extends React.Component {
       selectedTaskDetails:{
         title:'',
         description:''
-      }
+      },
+      columns: [
+        {
+        name: 'Todo',
+        content: [{task: 'Finish amazing app', taskId: 1}]
+        },
+        {
+          name: 'In-Progress',
+          content: [{ task: 'Build amazing app', taskId: 2 }]
+        },
+        {
+          name: "Complete",
+          content: [{ task: 'Design amazing app', taskId: 3 }]
+        }
+      ]
     }
     this.closeModal = this.closeModal.bind(this);
     this.getTaskDetails = this.getTaskDetails.bind(this);
@@ -29,30 +45,44 @@ export default class ColumnContainer extends React.Component {
       showModal:true
     });
   }
-
-  render() {
-    if (this.state.showModal) {
+  render(){
+    if (this.state.showModal){
+    return (
+      <div className='container'>
+        <div className='d-flex flex-wrap justify-content-center'>
+          {
+          this.state.columns.map(column=>{
+            return (
+              <Column
+              className = "col d-flex"
+              key = {column.columnId}
+              title = {column.name}
+              tasks = {column.content}
+              />
+            )
+          }
+       <TaskModal closeModal={this.closeModal}></TaskModal>
+         )
+    } else {
+            
       return (
-        <div className='container'>
-          <div className='row d-flex'>
-            <div className='col'>Column1</div>
-            <div className='col'>Column2</div>
-            <div className='col'>Column2</div>
-          </div>
-          <TaskModal closeModal={this.closeModal}></TaskModal>
+      <div className='container'>
+        <div className='d-flex flex-wrap justify-content-center'>
+          {
+          this.state.columns.map(column=>{
+            return (
+              <Column
+              className = "col d-flex"
+              key = {column.columnId}
+              title = {column.name}
+              tasks = {column.content}
+              />
+            )
+          })
+        }
         </div>
       )
     }
-    else {
-      return (
-        <div className='container'>
-          <div className='row d-flex'>
-            <div className='col'>Column1</div>
-            <div className='col'>Column2</div>
-            <div className='col'>Column2</div>
-          </div>
-        </div>
-      )
     }
   }
 }
