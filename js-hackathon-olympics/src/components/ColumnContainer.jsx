@@ -35,8 +35,14 @@ export default class ColumnContainer extends React.Component {
           content: [],
           columnId: this.state.columnCount + 1
         })
-        console.log(newColumn)
-    this.setState(state=>({columns: newColumn}))
+
+    this.setState(state=>({columns: newColumn, columnCount: this.state.columnCount+1}))
+  }
+
+  addTask(event) {
+    event.preventDefault();
+    const column = this.state.columns.slice()
+
   }
 
   render(){
