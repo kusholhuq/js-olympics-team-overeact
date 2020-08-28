@@ -9,18 +9,34 @@ export default class ColumnContainer extends React.Component {
       columns: [
         {
         name: 'Todo',
-        content: [{task: 'Finish amazing app', taskId: 1}]
+        content: [{task: 'Finish amazing app', taskId: 1}],
+        columnId: 1
         },
         {
           name: 'In-Progress',
-          content: [{ task: 'Build amazing app', taskId: 2 }]
+          content: [{ task: 'Build amazing app', taskId: 2 }],
+          columnId: 2
         },
         {
           name: "Complete",
-          content: [{ task: 'Design amazing app', taskId: 3 }]
+          content: [{ task: 'Design amazing app', taskId: 3 }],
+          columnId: 3
         }
       ]
     }
+    this.addColumn = this.addColumn.bind(this)
+  }
+
+  addColumn(event){
+    event.preventDefault();
+    const newColumn = this.state.columns.slice()
+          newColumn.push({
+          name: "New Column",
+          content: [],
+          columnId: this.state.columnCount + 1
+        })
+        console.log(newColumn)
+    this.setState(state=>({columns: newColumn}))
   }
 
   render(){
@@ -39,6 +55,7 @@ export default class ColumnContainer extends React.Component {
             )
           })
         }
+        <button onClick={this.addColumn}>Add Column</button>
         </div>
       </div>
     )
