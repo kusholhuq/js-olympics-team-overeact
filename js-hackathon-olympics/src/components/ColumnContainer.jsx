@@ -51,7 +51,7 @@ export default class ColumnContainer extends React.Component {
     this.setState({
       selectedTaskDetails: {
         title: task.title,
-        description: task.description,
+        description: task.content,
       },
       showModal: true,
     });
@@ -162,27 +162,6 @@ export default class ColumnContainer extends React.Component {
   }
 
   render() {
-    if (this.state.showModal) {
-      return (
-        <div className="container">
-          <div className="d-flex flex-wrap justify-content-center">
-            {this.state.columns.map((column) => {
-              return (
-                <Column
-                  className="col d-flex"
-                  key={column.columnId}
-                  title={column.name}
-                  tasks={column.content}
-                  addTask={this.addTask}
-                />
-              );
-            })}
-            <TaskModal closeModal={this.closeModal}></TaskModal>
-            <button onClick={this.addColumn}>Add Column</button>
-          </div>
-        </div>
-      );
-    } else {
       return (
         <div className="container">
           <DragDropContext onDragEnd={this.onDragEnd}>
@@ -204,6 +183,8 @@ export default class ColumnContainer extends React.Component {
                           parentSnapshot={snapshot}
                           addTask={this.addTask}
                           deleteTask={this.deleteTask}
+                          getTaskDetails={this.getTaskDetails}
+
                         />
                       )}
                     </Draggable>
@@ -214,8 +195,11 @@ export default class ColumnContainer extends React.Component {
               )}
             </Droppable>
           </DragDropContext>
+          <TaskModal showModal={this.state.showModal}
+                     closeModal={this.closeModal}
+                     title={this.state.selectedTaskDetails.title}
+                     description={this.state.selectedTaskDetails.description}/>
         </div>
       );
     }
   }
-}
