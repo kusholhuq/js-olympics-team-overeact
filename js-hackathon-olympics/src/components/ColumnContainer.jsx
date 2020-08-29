@@ -134,7 +134,7 @@ export default class ColumnContainer extends React.Component {
       return (
         <div className="container">
           <DragDropContext onDragEnd={this.onDragEnd}>
-            <Droppable droppableId="droppable" type="droppableItem">
+            <Droppable droppableId="droppable" type="droppableItem" direction="horizontal">
               {(provided, snapshot) => (
                 <div
                   className="row align-items-center"
