@@ -137,7 +137,19 @@ export default class ColumnContainer extends React.Component {
     //premise: column list is stored in state
     //look through state for column with  matching id
     //remove that column from array
+    //make a copy of the items array
+    //then loop through that copy, find the id
+    //delete it
+    //set state to the new array that i just made
+    //use filter method and slice
     console.log("we are connected");
+    console.log(columnId);
+    for(let i=0;i<this.state.items.length;i++){
+      if(this.state.items[i].id===columnId){
+        this.state.items.splice(i,1);
+        console.log('conditional fired');
+      }
+    }
   }
 
 
