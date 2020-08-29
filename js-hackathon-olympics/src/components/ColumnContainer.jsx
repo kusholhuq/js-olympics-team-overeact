@@ -12,9 +12,9 @@ export default class ColumnContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
       showModal: false,
       taskCount: 6,
+      columnCount: 3,
       selectedTaskDetails: {
         title: "",
         description: "",
@@ -39,6 +39,8 @@ export default class ColumnContainer extends React.Component {
     this.getTaskDetails = this.getTaskDetails.bind(this);
     this.reorder = this.reorder.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
+    this.addColumn = this.addColumn.bind(this)
+    this.addTask = this.addTask.bind(this)
   }
 
   closeModal() {
@@ -117,21 +119,20 @@ export default class ColumnContainer extends React.Component {
           items: newItems,
         });
       }
-
     }
-    this.addColumn = this.addColumn.bind(this)
-    this.addTask = this.addTask.bind(this)
   }
 
   addColumn(event){
     event.preventDefault();
-    const newColumn = this.state.columns.slice()
+    const newColumn = this.state.items.slice()
           newColumn.push({
-          name: "New Column",
-          content: [],
-          columnId: this.state.columnCount + 1
+            id: (this.state.columnCount + 1).toString(),
+          title: "New Column",
+          tasks: [],
         })
-    this.setState(state=>({columns: newColumn, columnCount: this.state.columnCount+1}))
+        console.log(this.state.items)
+        console.log(defaultTask)
+    this.setState(state=>({items: newColumn, columnCount: this.state.columnCount+1}))
   }
 
   addTask(columnId) {
@@ -150,23 +151,6 @@ export default class ColumnContainer extends React.Component {
 
 
   render() {
-<<<<<<< HEAD
-    if (this.state.showModal) {
-      return (
-        <div className="container">
-          <div className="d-flex flex-wrap justify-content-center">
-            {this.state.columns.map((column) => {
-              return <Column className="col d-flex" key={column.columnId} title={column.name} tasks={column.content} addTask = {this.addTask}/>;
-            })}
-            <TaskModal closeModal={this.closeModal}></TaskModal>
-            <button onClick={this.addColumn}>Add Column</button>
-          </div>
-
-        </div>
-      );
-    } else {
-=======
->>>>>>> 61a439f621f29a99bc44cee1ef5f982bf399460c
       return (
         <div className="container">
           <DragDropContext onDragEnd={this.onDragEnd}>
@@ -197,7 +181,6 @@ export default class ColumnContainer extends React.Component {
               )}
             </Droppable>
           </DragDropContext>
-
         </div>
       );
     }
