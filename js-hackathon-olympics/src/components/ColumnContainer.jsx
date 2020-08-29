@@ -37,19 +37,21 @@ export default class ColumnContainer extends React.Component {
           content: [],
           columnId: this.state.columnCount + 1
         })
-
     this.setState(state=>({columns: newColumn, columnCount: this.state.columnCount+1}))
   }
 
-  addTask(event, columnId) {
-    event.preventDefault();
+  addTask(columnId) {
     const columns = this.state.columns.slice()
     const column = columns.filter(col=>{
       return col.columnId === columnId
     })
-    column.content.push({
+    console.log(column)
+    console.log(column[0].content)
+
+    column[0].content.push({
       task: 'Added Task', taskId: this.state.taskCount +1
     })
+    this.setState(state=>({columns: columns, taskCount: this.state.taskCount+1}))
   }
 
   render(){
@@ -62,8 +64,10 @@ export default class ColumnContainer extends React.Component {
               <Column
               className = "col d-flex"
               key = {column.columnId}
+              id = {column.columnId}
               title = {column.name}
               tasks = {column.content}
+              addTask = {this.addTask}
               />
             )
           })

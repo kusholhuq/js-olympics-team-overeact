@@ -15,9 +15,9 @@ export default class Column extends React.Component {
           {this.props.title}
         </header>
         <div className="d-flex justify-content-center">
-          <i onClick={this.addTask} className="fas fa-plus"></i>
+          <i onClick={()=>this.props.addTask(this.props.id)} className="fas fa-plus"></i>
         </div>
-        <div className='mx-0 w-100 d-flex justify-content-center'>
+        <div className='mx-0 w-100 d-flex flex-wrap justify-content-center'>
           {
           this.props.tasks.map(content=>{
             return (
