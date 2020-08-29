@@ -8,7 +8,7 @@ export default class ColumnContainer extends React.Component {
     super(props);
     this.state = {
       columnCount: 3,
-      showModal: true,
+      showModal: false,
       selectedTaskDetails: {
         title: '',
         description: ''
