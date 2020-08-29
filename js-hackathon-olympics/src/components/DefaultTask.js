@@ -1,8 +1,8 @@
-export const DefaultTask = [
+export const defaultTask = [
   {
     title: "Todo",
     id: "1",
-    subItems: [
+    tasks: [
       {
         id: "10",
         title: "Finish app",
@@ -18,7 +18,7 @@ export const DefaultTask = [
   {
     title: "In-Progress",
     id: "2",
-    subItems: [
+    tasks: [
       {
         id: "20",
         title: "Build app",
@@ -34,7 +34,7 @@ export const DefaultTask = [
   {
     title: "Complete",
     id: "3",
-    subItems: [
+    tasks: [
       {
         id: "30",
         title: "Design app",

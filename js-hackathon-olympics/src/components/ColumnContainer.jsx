@@ -2,12 +2,10 @@ import React from "react";
 import TaskModal from "./TaskModal";
 import Column from "./Column";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { DefaultTask } from "./DefaultTask";
+import { defaultTask } from "./DefaultTask";
 
 const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? "lightblue" : "lightgrey",
-  padding: 10,
-  margin: 10
+  background: isDraggingOver ? "rgb(245,245,245)" : "white",
 });
 
 export default class ColumnContainer extends React.Component {
@@ -33,7 +31,7 @@ export default class ColumnContainer extends React.Component {
           content: [{ task: "Design amazing app", taskId: 3 }],
         },
       ],
-      items: DefaultTask,
+      items: defaultTask,
     };
     this.closeModal = this.closeModal.bind(this);
     this.getTaskDetails = this.getTaskDetails.bind(this);
@@ -77,7 +75,7 @@ export default class ColumnContainer extends React.Component {
       });
     } else if (result.type === "droppableSubItem") {
       const itemSubItemMap = this.state.items.reduce((acc, item) => {
-        acc[item.id] = item.subItems;
+        acc[item.id] = item.tasks;
         return acc;
       }, {});
 
@@ -88,12 +86,11 @@ export default class ColumnContainer extends React.Component {
 
       let newItems = [...this.state.items];
 
-      /** In this case subItems are this.reordered inside same Parent */
       if (sourceParentId === destParentId) {
         const reorderedSubItems = this.reorder(sourceSubItems, sourceIndex, destIndex);
         newItems = newItems.map((item) => {
           if (item.id === sourceParentId) {
-            item.subItems = reorderedSubItems;
+            item.tasks = reorderedSubItems;
           }
           return item;
         });
@@ -108,9 +105,9 @@ export default class ColumnContainer extends React.Component {
         newDestSubItems.splice(destIndex, 0, draggedItem);
         newItems = newItems.map((item) => {
           if (item.id === sourceParentId) {
-            item.subItems = newSourceSubItems;
+            item.tasks = newSourceSubItems;
           } else if (item.id === destParentId) {
-            item.subItems = newDestSubItems;
+            item.tasks = newDestSubItems;
           }
           return item;
         });
@@ -135,32 +132,34 @@ export default class ColumnContainer extends React.Component {
       );
     } else {
       return (
-        <DragDropContext onDragEnd={this.onDragEnd}>
-          <Droppable droppableId="droppable" type="droppableItem">
-            {(provided, snapshot) => (
-              <div
-                className="d-flex flex-nowrap"
-                ref={provided.innerRef}
-                style={getListStyle(snapshot.isDraggingOver)}
-              >
-                {this.state.items.map((item, index) => (
-                  <Draggable key={item.id} draggableId={item.id} index={index}>
-                    {(provided, snapshot) => (
-                      <Column
-                        title={item.title}
-                        subItems={item.subItems}
-                        columnId={item.id}
-                        parentProvided={provided}
-                        parentSnapshot={snapshot}
-                      />
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+        <div className="container">
+          <DragDropContext onDragEnd={this.onDragEnd}>
+            <Droppable droppableId="droppable" type="droppableItem">
+              {(provided, snapshot) => (
+                <div
+                  className="row align-items-center"
+                  ref={provided.innerRef}
+                  style={getListStyle(snapshot.isDraggingOver)}
+                >
+                  {this.state.items.map((item, index) => (
+                    <Draggable key={item.id} draggableId={item.id} index={index}>
+                      {(provided, snapshot) => (
+                        <Column
+                          title={item.title}
+                          tasks={item.tasks}
+                          columnId={item.id}
+                          parentProvided={provided}
+                          parentSnapshot={snapshot}
+                        />
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+        </div>
       );
     }
   }

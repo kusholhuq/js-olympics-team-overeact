@@ -1,43 +1,32 @@
-import React from 'react';
-import TaskCard from './TaskCard';
-
-const grid = 8;
+import React from "react";
+import TaskCard from "./TaskCard";
 
 const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: "none",
-  padding: grid * 2,
-  margin: `0 0 ${grid}px 0`,
-
-  // change background colour if dragging
-  background: isDragging ? "lightgreen" : "grey",
-
-  // styles we need to apply on draggables
+  background: isDragging ? "lightgreen" : "lightblue",
   ...draggableStyle,
 });
 
 export default class Column extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    }
+    this.state = {};
   }
 
   render() {
-    const { title, subItems, columnId, parentProvided, parentSnapshot } = this.props;
+    const { title, tasks, columnId, parentProvided, parentSnapshot } = this.props;
 
     return (
-      <div className="m-3">
+      <div className="col-4 vh-100">
         <div
-          className="border"
+          className="shadow rounded"
           ref={parentProvided.innerRef}
           {...parentProvided.draggableProps}
           style={getItemStyle(parentSnapshot.isDragging, parentProvided.draggableProps.style)}
         >
-          <header className="border mx-0 w-100 d-flex justify-content-center" {...parentProvided.dragHandleProps}>
-            {title}
+          <header className="mx-0 w-100 d-flex justify-content-center" {...parentProvided.dragHandleProps}>
+            <h4 className="align-middle pt-3 pb-2">{title}</h4>
           </header>
-          <TaskCard subItems={subItems} columnId={columnId} />
+          <TaskCard tasks={tasks} columnId={columnId} />
         </div>
         {parentProvided.placeholder}
       </div>
