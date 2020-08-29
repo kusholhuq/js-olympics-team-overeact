@@ -1,7 +1,7 @@
-
-
 import React from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
+import { ContextMenuTrigger } from "react-contextmenu";
+import ContextPopup from './ContextPopup'
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   background: isDragging ? "lightgreen" : "white",
@@ -37,21 +37,31 @@ export default class TaskCard extends React.Component {
               <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot) => (
                   <div>
-                    <div
-                      className="shadow-sm"
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
-                      id={item.id}
-                    >
-                      <button type="button" className="close" id={item.id} onClick={this.handleClickDelete}>
-                        <span>&times;</span>
-                      </button>
-                      <h5>{item.title}</h5>
-                      <p className="mb-1">{item.content}</p>
-                      <button className="btn btn-secondary" onClick={()=>{this.props.getTaskDetails(item)}}>Details</button>
-                    </div>
+                    <ContextMenuTrigger id={item.id}>
+                      <div
+                        className="shadow-sm"
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
+                        id={item.id}
+                      >
+                        <button type="button" className="close" id={item.id} onClick={this.handleClickDelete}>
+                          <span>&times;</span>
+                        </button>
+                        <h5>{item.title}</h5>
+                        <p className="mb-1">{item.content}</p>
+                        <button
+                          className="btn btn-secondary"
+                          onClick={() => {
+                            this.props.getTaskDetails(item);
+                          }}
+                        >
+                          Details
+                        </button>
+                      </div>
+                    </ContextMenuTrigger>
+                    <ContextPopup id={item.id} />
                     {provided.placeholder}
                   </div>
                 )}
