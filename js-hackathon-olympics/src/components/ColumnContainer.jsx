@@ -41,6 +41,8 @@ export default class ColumnContainer extends React.Component {
     this.addColumn = this.addColumn.bind(this);
     this.addTask = this.addTask.bind(this);
     this.deleteColumn = this.deleteColumn.bind(this);
+    this.deleteTask = this.deleteTask.bind(this);
+
   }
 
   closeModal() {
@@ -143,7 +145,6 @@ export default class ColumnContainer extends React.Component {
     this.setState({items:arrayCopy});
   }
 
-
   addTask(columnId) {
     const columns = this.state.columns.slice();
     const column = columns.filter((col) => {
@@ -157,6 +158,19 @@ export default class ColumnContainer extends React.Component {
       taskId: this.state.taskCount + 1,
     });
     this.setState((state) => ({ columns: columns, taskCount: this.state.taskCount + 1 }));
+  }
+
+  deleteTask(taskId, columnId) {
+    const newItems = [...this.state.items];
+    newItems.filter((column, index) => {
+      if(column["id"] === columnId) {
+        const taskIndex = newItems[index].tasks.findIndex((task) => task.id === taskId);
+        newItems[index].tasks.splice(taskIndex, 1);
+        this.setState({ items: newItems });
+        return true;
+      }
+      return false;
+    });
   }
 
   render() {
@@ -181,6 +195,7 @@ export default class ColumnContainer extends React.Component {
                         parentSnapshot={snapshot}
                         addTask={this.addTask}
                         getTaskDetails={this.getTaskDetails}
+                        deleteTask={this.deleteTask}
                         deleteColumn={this.deleteColumn}
                       />
                     )}

@@ -20,11 +20,12 @@ const getListStyle = (isDraggingOver) => ({
 export default class TaskCard extends React.Component {
   constructor(props) {
     super(props)
-    this.handleClickItem = this.handleClickItem.bind(this)
+    this.handleClickDelete = this.handleClickDelete.bind(this)
   }
 
-  handleClickItem(event) {
-    console.log(event.currentTarget.id)
+  handleClickDelete(event) {
+    event.stopPropagation();
+    this.props.deleteTask(event.currentTarget.id, this.props.columnId);
   }
 
   render() {
@@ -43,9 +44,8 @@ export default class TaskCard extends React.Component {
                       {...provided.dragHandleProps}
                       style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
                       id={item.id}
-                      onClick={this.handleClickItem}
                     >
-                      <button type="button" className="close">
+                      <button type="button" className="close" id={item.id} onClick={this.handleClickDelete}>
                         <span>&times;</span>
                       </button>
                       <h5>{item.title}</h5>
