@@ -5,7 +5,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { defaultTask } from "./DefaultTask";
 
 const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? "rgb(245,245,245)" : "white",
+  background: isDraggingOver ? "white" : "white",
 });
 
 export default class ColumnContainer extends React.Component {
@@ -137,7 +137,7 @@ export default class ColumnContainer extends React.Component {
             <Droppable droppableId="droppable" type="droppableItem" direction="horizontal">
               {(provided, snapshot) => (
                 <div
-                  className="row align-items-center"
+                  className="d-flex flex-wrap justify-content-center"
                   ref={provided.innerRef}
                   style={getListStyle(snapshot.isDraggingOver)}
                 >

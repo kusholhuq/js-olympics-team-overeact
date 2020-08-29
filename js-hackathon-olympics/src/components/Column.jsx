@@ -16,7 +16,7 @@ export default class Column extends React.Component {
     const { title, tasks, columnId, parentProvided, parentSnapshot } = this.props;
 
     return (
-      <div className="col-4 vh-100">
+      <div className="w-25 vh-100 mx-3">
         <div
           className="shadow rounded"
           ref={parentProvided.innerRef}
@@ -24,7 +24,7 @@ export default class Column extends React.Component {
           style={getItemStyle(parentSnapshot.isDragging, parentProvided.draggableProps.style)}
         >
           <header className="mx-0 w-100 d-flex justify-content-center" {...parentProvided.dragHandleProps}>
-            <h4 className="align-middle pt-3 pb-2">{title}</h4>
+            <h4 className="pt-3 pb-2">{title}</h4>
           </header>
           <TaskCard tasks={tasks} columnId={columnId} />
         </div>
