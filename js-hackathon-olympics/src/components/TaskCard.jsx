@@ -6,7 +6,7 @@ export default function TaskCard(props){
     <div className="border">
       {props.content}
     </div>
-    <button onClick={props.getTaskDetails} className='btn btn-primary'>Details</button>
+    <button onClick={()=>props.getTaskDetails(props.content)} className='btn btn-primary'>Details</button>
     </div>
   )
 }

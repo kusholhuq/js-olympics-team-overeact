@@ -39,8 +39,8 @@ export default class ColumnContainer extends React.Component {
   getTaskDetails(task) {
     this.setState({
       selectedTaskDetails: {
-        title: task.title,
-        description: task.description
+        title: task
+        // description: task.description
       },
       showModal: true
     });
@@ -64,7 +64,7 @@ export default class ColumnContainer extends React.Component {
                 )
               }
               )}
-            < TaskModal closeModal={this.closeModal}></TaskModal>
+            < TaskModal closeModal={this.closeModal} title={this.state.selectedTaskDetails.title}></TaskModal>
           </div>
         </div >
       )
@@ -81,6 +81,7 @@ export default class ColumnContainer extends React.Component {
                     key={column.columnId}
                     title={column.name}
                     tasks={column.content}
+                    getTaskDetails={this.getTaskDetails}
                   />
                 )
               })
