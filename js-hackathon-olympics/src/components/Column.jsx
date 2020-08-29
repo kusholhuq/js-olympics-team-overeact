@@ -21,6 +21,7 @@ export default class Column extends React.Component {
               <TaskCard
               key={content.taskId}
               content={content.task}
+              getTaskDetails={this.props.getTaskDetails}
               />
             )
           })

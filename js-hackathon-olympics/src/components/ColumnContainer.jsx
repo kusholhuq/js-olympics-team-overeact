@@ -44,6 +44,7 @@ export default class ColumnContainer extends React.Component {
       },
       showModal: true
     });
+    console.log('imhere');
   }
   render() {
     if (this.state.showModal) {
@@ -58,6 +59,7 @@ export default class ColumnContainer extends React.Component {
                     key={column.columnId}
                     title={column.name}
                     tasks={column.content}
+                    getTaskDetails={this.getTaskDetails}
                   />
                 )
               }
