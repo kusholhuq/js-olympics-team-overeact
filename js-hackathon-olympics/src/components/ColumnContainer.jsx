@@ -12,7 +12,6 @@ export default class ColumnContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
       showModal: false,
       taskCount: 6,
       selectedTaskDetails: {
@@ -39,6 +38,8 @@ export default class ColumnContainer extends React.Component {
     this.getTaskDetails = this.getTaskDetails.bind(this);
     this.reorder = this.reorder.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
+    this.addColumn = this.addColumn.bind(this);
+    this.addTask = this.addTask.bind(this);
   }
 
   closeModal() {
@@ -117,40 +118,36 @@ export default class ColumnContainer extends React.Component {
           items: newItems,
         });
       }
-
     }
-    this.addColumn = this.addColumn.bind(this)
-    this.addTask = this.addTask.bind(this)
   }
 
-  addColumn(event){
+  addColumn(event) {
     event.preventDefault();
-    const newColumn = this.state.columns.slice()
-          newColumn.push({
-          name: "New Column",
-          content: [],
-          columnId: this.state.columnCount + 1
-        })
-    this.setState(state=>({columns: newColumn, columnCount: this.state.columnCount+1}))
+    const newColumn = this.state.columns.slice();
+    newColumn.push({
+      name: "New Column",
+      content: [],
+      columnId: this.state.columnCount + 1,
+    });
+    this.setState((state) => ({ columns: newColumn, columnCount: this.state.columnCount + 1 }));
   }
 
   addTask(columnId) {
-    const columns = this.state.columns.slice()
-    const column = columns.filter(col=>{
-      return col.columnId === columnId
-    })
-    console.log(column)
-    console.log(column[0].content)
+    const columns = this.state.columns.slice();
+    const column = columns.filter((col) => {
+      return col.columnId === columnId;
+    });
+    console.log(column);
+    console.log(column[0].content);
 
     column[0].content.push({
-      task: 'Added Task', taskId: this.state.taskCount +1
-    })
-    this.setState(state=>({columns: columns, taskCount: this.state.taskCount+1}))
+      task: "Added Task",
+      taskId: this.state.taskCount + 1,
+    });
+    this.setState((state) => ({ columns: columns, taskCount: this.state.taskCount + 1 }));
   }
 
-
   render() {
-
       return (
         <div className="container">
           <DragDropContext onDragEnd={this.onDragEnd}>
@@ -170,9 +167,9 @@ export default class ColumnContainer extends React.Component {
                           columnId={item.id}
                           parentProvided={provided}
                           parentSnapshot={snapshot}
-                          addTask = {this.addTask}
+                          addTask={this.addTask}
                         />
-                        )}
+                      )}
                     </Draggable>
                   ))}
                   <button onClick={this.addColumn}>Add Column</button>
@@ -181,7 +178,6 @@ export default class ColumnContainer extends React.Component {
               )}
             </Droppable>
           </DragDropContext>
-
         </div>
       );
     }
