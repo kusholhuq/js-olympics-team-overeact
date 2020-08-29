@@ -24,7 +24,7 @@ export default class Column extends React.Component {
           {...parentProvided.draggableProps}
           style={getItemStyle(parentSnapshot.isDragging, parentProvided.draggableProps.style)}
         >
-          <div className="d-flex justify-content-end"><i class="mt-2 mr-2 fas fa-times-circle"
+          <div className="d-flex justify-content-end"><i className="pink-hover mt-2 mr-2 fas fa-times-circle"
           onClick={()=>{this.props.deleteColumn(this.props.columnId)}}></i></div>
           <header className="mx-0 w-100 d-flex justify-content-center" {...parentProvided.dragHandleProps}>
 

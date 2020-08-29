@@ -66,3 +66,9 @@
 .pac{
   font-family: 'Pacifico', cursive;
 }
+
+.pink-hover:hover{
+  color:hotpink;
+  cursor: pointer;
+  transition: ease-in-out all .2s;
+}
