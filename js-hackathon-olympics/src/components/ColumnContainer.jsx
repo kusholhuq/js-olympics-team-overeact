@@ -40,6 +40,7 @@ export default class ColumnContainer extends React.Component {
     this.onDragEnd = this.onDragEnd.bind(this);
     this.addColumn = this.addColumn.bind(this);
     this.addTask = this.addTask.bind(this);
+    this.deleteTask = this.deleteTask.bind(this);
   }
 
   closeModal() {
@@ -147,6 +148,19 @@ export default class ColumnContainer extends React.Component {
     this.setState((state) => ({ columns: columns, taskCount: this.state.taskCount + 1 }));
   }
 
+  deleteTask(taskId, columnId) {
+    const newItems = [...this.state.items];
+    newItems.filter((column, index) => {
+      if(column["id"] === columnId) {
+        const taskIndex = newItems[index].tasks.findIndex((task) => task.id === taskId);
+        newItems[index].tasks.splice(taskIndex, 1);
+        this.setState({ items: newItems });
+        return true;
+      }
+      return false;
+    });
+  }
+
   render() {
     if (this.state.showModal) {
       return (
@@ -189,6 +203,7 @@ export default class ColumnContainer extends React.Component {
                           parentProvided={provided}
                           parentSnapshot={snapshot}
                           addTask={this.addTask}
+                          deleteTask={this.deleteTask}
                         />
                       )}
                     </Draggable>
