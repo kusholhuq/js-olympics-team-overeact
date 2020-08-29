@@ -25,12 +25,12 @@ export default class Column extends React.Component {
           style={getItemStyle(parentSnapshot.isDragging, parentProvided.draggableProps.style)}
         >
           <header className="mx-0 w-100 d-flex justify-content-center" {...parentProvided.dragHandleProps}>
-            
+
             <h4 className="pt-3 pb-2">{title}</h4>
-            
+
           </header>
             <div className="d-flex justify-content-center">
-              <i onClick={()=>this.props.addTask(this.props.id)} className="fas fa-plus"></i>
+              <i onClick={()=>this.props.addTask(this.props.columnId)} className="fas fa-plus"></i>
             </div>
           <TaskCard tasks={tasks} columnId={columnId} />
 

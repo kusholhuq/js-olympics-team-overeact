@@ -122,19 +122,20 @@ export default class ColumnContainer extends React.Component {
   }
 
   addTask(columnId) {
-    const columns = this.state.columns.slice()
+    const columns = this.state.items.slice()
     const column = columns.filter(col=>{
-      return col.columnId === columnId
+      return col.id === columnId
     })
     console.log(column)
-    console.log(column[0].content)
+    console.log(column[0].tasks)
 
-    column[0].content.push({
-      task: 'Added Task', taskId: this.state.taskCount +1
+    column[0].tasks.push({
+      title: 'Added Task',
+      id: (this.state.taskCount +1).toString(),
+      content: 'Enter Description Here'
     })
-    this.setState(state=>({columns: columns, taskCount: this.state.taskCount+1}))
+    this.setState(state=>({items: columns, taskCount: this.state.taskCount+1}))
   }
-
 
   render() {
       return (
