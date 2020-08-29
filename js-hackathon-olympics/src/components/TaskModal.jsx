@@ -9,6 +9,7 @@ export default class TaskModal extends React.Component {
   }
 
   render(){
+    if(this.props.showModal){
     return(
       <div className='backdrop d-flex'>
         <div className='modal-contents m-auto bg-white border rounded p-3 task-modal'>
@@ -25,6 +26,7 @@ export default class TaskModal extends React.Component {
         </div>
       </div>
     )
+    }
   }
 
 }

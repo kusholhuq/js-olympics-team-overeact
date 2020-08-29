@@ -150,6 +150,7 @@ export default class ColumnContainer extends React.Component {
 
 
   render() {
+<<<<<<< HEAD
     if (this.state.showModal) {
       return (
         <div className="container">
@@ -164,6 +165,8 @@ export default class ColumnContainer extends React.Component {
         </div>
       );
     } else {
+=======
+>>>>>>> 61a439f621f29a99bc44cee1ef5f982bf399460c
       return (
         <div className="container">
           <DragDropContext onDragEnd={this.onDragEnd}>
@@ -199,4 +202,3 @@ export default class ColumnContainer extends React.Component {
       );
     }
   }
-}
