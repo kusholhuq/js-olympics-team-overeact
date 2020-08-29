@@ -19,20 +19,6 @@ export default class ColumnContainer extends React.Component {
         title: "",
         description: "",
       },
-      columns: [
-        {
-          name: "Todo",
-          content: [{ task: "Finish amazing app", taskId: 1 }],
-        },
-        {
-          name: "In-Progress",
-          content: [{ task: "Build amazing app", taskId: 2 }],
-        },
-        {
-          name: "Complete",
-          content: [{ task: "Design amazing app", taskId: 3 }],
-        },
-      ],
       items: defaultTask,
     };
     this.closeModal = this.closeModal.bind(this);
