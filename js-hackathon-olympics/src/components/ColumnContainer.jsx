@@ -185,17 +185,16 @@ export default class ColumnContainer extends React.Component {
                           parentSnapshot={snapshot}
                           addTask = {this.addTask}
                         />
-                        <button onClick={this.addColumn}>Add Column</button>
-                      )}
-                      
+                        )}
                     </Draggable>
                   ))}
+                  <button onClick={this.addColumn}>Add Column</button>
                   {provided.placeholder}
                 </div>
               )}
             </Droppable>
           </DragDropContext>
-          
+
         </div>
       );
     }
