@@ -12,7 +12,7 @@ export default class ColumnContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showModal: true,
+      showModal: false,
       taskCount: 6,
       selectedTaskDetails: {
         title: "",
@@ -50,7 +50,7 @@ export default class ColumnContainer extends React.Component {
     this.setState({
       selectedTaskDetails: {
         title: task.title,
-        description: task.description,
+        description: task.content,
       },
       showModal: true,
     });
@@ -168,6 +168,7 @@ export default class ColumnContainer extends React.Component {
                           parentProvided={provided}
                           parentSnapshot={snapshot}
                           addTask={this.addTask}
+                          getTaskDetails={this.getTaskDetails}
                         />
                       )}
                     </Draggable>
@@ -178,7 +179,10 @@ export default class ColumnContainer extends React.Component {
               )}
             </Droppable>
           </DragDropContext>
-          <TaskModal showModal={this.state.showModal} closeModal={this.closeModal}/>
+          <TaskModal showModal={this.state.showModal}
+                     closeModal={this.closeModal}
+                     title={this.state.selectedTaskDetails.title}
+                     description={this.state.selectedTaskDetails.description}/>
         </div>
       );
     }
