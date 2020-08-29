@@ -50,6 +50,7 @@ export default class TaskCard extends React.Component {
                       </button>
                       <h5>{item.title}</h5>
                       <p className="mb-1">{item.content}</p>
+                      <button className="btn btn-secondary" onClick={()=>{this.props.getTaskDetails(item)}}>Details</button>
                     </div>
                     {provided.placeholder}
                   </div>
