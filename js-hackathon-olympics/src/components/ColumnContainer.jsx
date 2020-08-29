@@ -27,6 +27,16 @@ export default class ColumnContainer extends React.Component {
     this.onDragEnd = this.onDragEnd.bind(this);
     this.addColumn = this.addColumn.bind(this)
     this.addTask = this.addTask.bind(this)
+    this._handleFocus = this._handleFocus.bind(this);
+    this._handleFocusOut = this._handleFocusOut.bind(this);
+  }
+
+  _handleFocus(text) {
+    console.log('Focused with text: ' + text);
+  }
+
+  _handleFocusOut(text) {
+    console.log('Left editor with text: ' + text);
   }
 
   closeModal() {
@@ -158,6 +168,8 @@ export default class ColumnContainer extends React.Component {
                           parentProvided={provided}
                           parentSnapshot={snapshot}
                           addTask = {this.addTask}
+                          _handleFocus = {this._handleFocus}
+                          _handleFocusOut = {this._handleFocusOut}
                         />
                         )}
                     </Draggable>

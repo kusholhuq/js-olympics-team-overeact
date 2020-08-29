@@ -1,5 +1,6 @@
 import React from "react";
 import TaskCard from "./TaskCard";
+import EditableLabel from 'react-inline-editing';
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   background: isDragging ? "lightgreen" : "lightblue",
@@ -13,7 +14,7 @@ export default class Column extends React.Component {
   }
 
   render() {
-    const { title, tasks, columnId, parentProvided, parentSnapshot } = this.props;
+    const { title, tasks, columnId, parentProvided, parentSnapshot, addTask, _handleFocus, _handleFocusOut } = this.props;
 
     return (
 
@@ -26,13 +27,23 @@ export default class Column extends React.Component {
         >
           <header className="mx-0 w-100 d-flex justify-content-center" {...parentProvided.dragHandleProps}>
 
-            <h4 className="pt-3 pb-2">{title}</h4>
+            <EditableLabel text={title}
+              labelClassName='myLabelClass'
+              inputClassName='myInputClass'
+              inputWidth='200px'
+              inputHeight='25px'
+              inputMaxLength= {50}
+              labelFontWeight='bold'
+              inputFontWeight='bold'
+              onFocus={_handleFocus}
+              onFocusOut={_handleFocusOut}
+            />
 
           </header>
             <div className="d-flex justify-content-center">
-              <i onClick={()=>this.props.addTask(this.props.columnId)} className="fas fa-plus"></i>
+              <i onClick={()=>addTask(this.props.columnId)} className="fas fa-plus"></i>
             </div>
-          <TaskCard tasks={tasks} columnId={columnId} />
+          <TaskCard tasks={tasks} columnId={columnId} _handleFocus={_handleFocus} _handleFocusOut={_handleFocusOut}  />
 
         </div>
         {parentProvided.placeholder}

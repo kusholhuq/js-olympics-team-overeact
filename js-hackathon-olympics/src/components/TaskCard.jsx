@@ -1,7 +1,6 @@
-
-
 import React from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
+import EditableLabel from 'react-inline-editing';
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   background: isDragging ? "lightgreen" : "white",
@@ -48,8 +47,28 @@ export default class TaskCard extends React.Component {
                       <button type="button" className="close">
                         <span>&times;</span>
                       </button>
-                      <h5>{item.title}</h5>
-                      <p className="mb-1">{item.content}</p>
+                      <EditableLabel text={item.title}
+                        labelClassName='myLabelClass'
+                        inputClassName='myInputClass'
+                        inputWidth='80%'
+                        inputHeight='25px'
+                        inputMaxLength={50}
+                        labelFontWeight='bold'
+                        inputFontWeight='bold'
+                        onFocus={this.props._handleFocus}
+                        onFocusOut={this.props._handleFocusOut}
+                      />
+                      <EditableLabel text={item.content}
+                        labelClassName='myLabelClass'
+                        inputClassName='myInputClass'
+                        inputWidth='100%'
+                        inputHeight='25px'
+                        inputMaxLength={50}
+                        labelFontWeight=''
+                        inputFontWeight='bold'
+                        onFocus={this.props._handleFocus}
+                        onFocusOut={this.props._handleFocusOut}
+                      />
                     </div>
                     {provided.placeholder}
                   </div>
