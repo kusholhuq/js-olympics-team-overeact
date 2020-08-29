@@ -58,3 +58,11 @@
 .h-10{
   height: 5%;
 }
+
+.header{
+  background-color: rgb(235, 235, 235);
+}
+
+.pac{
+  font-family: 'Pacifico', cursive;
+}
