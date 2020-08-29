@@ -12,7 +12,7 @@ export default class ColumnContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showModal: false,
+      showModal: true,
       taskCount: 6,
       selectedTaskDetails: {
         title: "",
@@ -178,6 +178,7 @@ export default class ColumnContainer extends React.Component {
               )}
             </Droppable>
           </DragDropContext>
+          <TaskModal showModal={this.state.showModal} closeModal={this.closeModal}/>
         </div>
       );
     }

@@ -27,6 +27,9 @@ export default class TaskModal extends React.Component {
       </div>
     )
     }
+    else{
+      return null;
+    }
   }
 
 }
