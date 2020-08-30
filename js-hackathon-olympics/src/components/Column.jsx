@@ -9,7 +9,27 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 export default class Column extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      columnEditing: false,
+      title: this.props.title,
+      tasks: this.props.tasks,
+      columnId: this.props.columnId
+    };
+    this.editColInputs = this.editColInputs.bind(this)
+    this.doneEditingCol = this.doneEditingCol.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  editColInputs() {
+    this.setState({ columnEditing: true })
+  }
+
+  doneEditingCol() {
+    this.setState({ columnEditing: false })
+  }
+
+  handleChange(event) {
+    this.setState({ [event.target.id]: event.target.value });
   }
 
   render() {
@@ -32,19 +52,33 @@ export default class Column extends React.Component {
             ></i>
           </div>
           <header className="mx-0 w-100 d-flex justify-content-center" {...parentProvided.dragHandleProps}>
-            <h4 className="pt-1 pb-2">{title}</h4>
+
+          {this.state.columnEditing
+              ? <div>
+                  <input
+                  id="title"
+                  type="text"
+                  className="w-100 border-noborder"
+                  value={this.state.title}
+                  onChange={this.handleChange}
+                  />
+                  <button onClick={()=>this.doneEditingCol()}>Done</button>
+                 </div>
+              : <h4 className="pt-1 pb-2" onClick={this.editColInputs}>{this.state.title}</h4>
+          }
           </header>
-          <div className="d-flex justify-content-center">
-            <i onClick={() => this.props.addTask(this.props.id)} className="fas fa-plus"></i>
-          </div>
-          <TaskCard
-            tasks={tasks}
-            columnId={columnId}
+            <div className="d-flex justify-content-center">
+              <i onClick={()=>this.props.addTask(columnId)} className="fas fa-plus"></i>
+            </div>
+          <TaskCard 
+            tasks={tasks} 
+            columnId={columnId} 
+            changeItems={this.props.changeItems}
             columnList={this.props.columnList}
             deleteTask={deleteTask}
             getTaskDetails={this.props.getTaskDetails}
             moveTo={this.props.moveTo}
-          />
+            />
         </div>
         {parentProvided.placeholder}
       </div>

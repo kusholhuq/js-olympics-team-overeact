@@ -14,34 +14,36 @@ export default class ColumnContainer extends React.Component {
     this.state = {
       showModal: false,
       taskCount: 6,
+      columnCount: 3,
       selectedTaskDetails: {
         title: "",
         description: "",
       },
-      columns: [
-        {
-          name: "Todo",
-          content: [{ task: "Finish amazing app", taskId: 1 }],
-        },
-        {
-          name: "In-Progress",
-          content: [{ task: "Build amazing app", taskId: 2 }],
-        },
-        {
-          name: "Complete",
-          content: [{ task: "Design amazing app", taskId: 3 }],
-        },
-      ],
       items: defaultTask,
     };
     this.closeModal = this.closeModal.bind(this);
     this.getTaskDetails = this.getTaskDetails.bind(this);
     this.reorder = this.reorder.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
-    this.addColumn = this.addColumn.bind(this);
-    this.addTask = this.addTask.bind(this);
+    this.addColumn = this.addColumn.bind(this)
+    this.addTask = this.addTask.bind(this)
+    this.changeItems = this.changeItems.bind(this)
     this.deleteColumn = this.deleteColumn.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
+  }
+
+  changeItems(id, task){
+    const oldItems = this.state.items.slice();
+    for (let i = 0; i<oldItems.length; i++){
+      for (let inc =0; inc<oldItems[i].tasks.length; inc++){
+        if (id===oldItems[i].tasks[inc].id){
+           oldItems[i].tasks[inc] = task
+        }
+      }
+    }
+    this.setState({
+      items: oldItems
+    })
   }
 
   closeModal() {
@@ -136,15 +138,17 @@ export default class ColumnContainer extends React.Component {
     }
   }
 
-  addColumn(event) {
+  addColumn(event){
     event.preventDefault();
-    const newColumn = this.state.columns.slice();
-    newColumn.push({
-      name: "New Column",
-      content: [],
-      columnId: this.state.columnCount + 1,
-    });
-    this.setState((state) => ({ columns: newColumn, columnCount: this.state.columnCount + 1 }));
+    const newColumn = this.state.items.slice()
+          newColumn.push({
+            id: (this.state.columnCount + 1).toString(),
+          title: "New Column",
+          tasks: [],
+        })
+        console.log(this.state.items)
+        console.log(defaultTask)
+    this.setState(state=>({items: newColumn, columnCount: this.state.columnCount+1}))
   }
 
   deleteColumn(columnId) {
@@ -158,18 +162,19 @@ export default class ColumnContainer extends React.Component {
   }
 
   addTask(columnId) {
-    const columns = this.state.columns.slice();
-    const column = columns.filter((col) => {
-      return col.columnId === columnId;
-    });
-    console.log(column);
-    console.log(column[0].content);
+    const columns = this.state.items.slice()
+    const column = columns.filter(col=>{
+      return col.id === columnId
+    })
+    console.log(column)
+    console.log(column[0].tasks)
 
-    column[0].content.push({
-      task: "Added Task",
-      taskId: this.state.taskCount + 1,
-    });
-    this.setState((state) => ({ columns: columns, taskCount: this.state.taskCount + 1 }));
+    column[0].tasks.push({
+      title: 'Added Task',
+      id: (this.state.taskCount +1).toString(),
+      content: 'Enter Description Here'
+    })
+    this.setState(state=>({items: columns, taskCount: this.state.taskCount+1}))
   }
 
   deleteTask(taskId, columnId) {
@@ -211,6 +216,7 @@ export default class ColumnContainer extends React.Component {
                         deleteTask={this.deleteTask}
                         deleteColumn={this.deleteColumn}
                         moveTo={this.onDragEnd}
+                        changeItems = {this.changeItems}
                       />
                     )}
                   </Draggable>
