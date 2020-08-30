@@ -72,3 +72,22 @@
   cursor: pointer;
   transition: ease-in-out all .2s;
 }
+
+.add-column{
+  height: 2rem;
+  background-color: white;
+}
+
+.zoom:hover{
+  transition: all ease-in-out .2s;
+  color: rgb(144, 238, 144);
+  cursor: pointer;
+  font-size:1.7rem;
+}
+
+.add-task{
+  cursor: pointer;
+}
+.horizontal-scroll{
+  overflow:scroll;
+}

@@ -192,7 +192,7 @@ export default class ColumnContainer extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="horizontal-scroll">
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable" type="droppableItem" mode="virtual" direction="horizontal">
             {(provided, snapshot) => (
@@ -221,7 +221,7 @@ export default class ColumnContainer extends React.Component {
                     )}
                   </Draggable>
                 ))}
-                <button onClick={this.addColumn}>Add Column</button>
+                <div onClick={this.addColumn} className="add-column"><i className="fa fa-plus-circle fa-lg zoom" aria-hidden="true"></i></div>
                 {provided.placeholder}
               </div>
             )}
