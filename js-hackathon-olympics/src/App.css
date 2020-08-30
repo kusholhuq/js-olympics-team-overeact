@@ -160,3 +160,7 @@
   max-height: 40vh;
 }
 }
+
+.greyBackground{
+  background-color: lightgray;
+}
