@@ -25,17 +25,12 @@ export default class TaskCard extends React.Component {
     this.state = {
       tasks: this.props.tasks
     }
-    this.handleClickItem = this.handleClickItem.bind(this)
     this.handleClickDelete = this.handleClickDelete.bind(this)
   }
 
   handleClickDelete(event) {
     event.stopPropagation();
     this.props.deleteTask(event.currentTarget.id, this.props.columnId);
-  }
-
-  handleClickItem(event) {
-    console.log(event.currentTarget.id)
   }
 
   render() {
