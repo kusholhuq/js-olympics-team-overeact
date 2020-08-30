@@ -37,7 +37,7 @@ export default class TaskCard extends React.Component {
     return (
       <Droppable droppableId={this.props.columnId} type={`droppableSubItem`}>
         {(provided, snapshot) => (
-          <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
+          <div className="vertical-scroll" ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
             {this.props.tasks.map((item, index) => (
               <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot) => (
@@ -63,14 +63,14 @@ export default class TaskCard extends React.Component {
                         changeItems={this.props.changeItems}
 
                       />
-                        <button
-                          className="btn btn-secondary"
+                        <div
+                          className="details"
                           onClick={() => {
                             this.props.getTaskDetails(item);
                           }}
                         >
-                          Details
-                        </button>
+                          <i className="fas fa-search-plus"></i>
+                        </div>
                       </div>
                     </ContextMenuTrigger>
                     <ContextPopup
