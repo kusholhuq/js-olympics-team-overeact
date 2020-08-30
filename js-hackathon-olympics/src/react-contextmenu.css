@@ -13,6 +13,9 @@
   pointer-events: none;
   text-align: left;
   transition: opacity 100ms ease !important;
+  box-shadow: 0 0 5px #888;
+  -moz-box-shadow: 0 0 5px #888;
+  -webkit-box-shadow: 0 0 5px#888;
 }
 
 .react-contextmenu.react-contextmenu--visible {
@@ -63,9 +66,8 @@
   padding: 0;
 }
 
-.react-contextmenu-item.react-contextmenu-submenu
-  > .react-contextmenu-item:after {
-  content: '▶';
+.react-contextmenu-item.react-contextmenu-submenu > .react-contextmenu-item:after {
+  content: "▶";
   display: inline-block;
   position: absolute;
   right: 7px;

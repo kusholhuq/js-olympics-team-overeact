@@ -29,6 +29,17 @@ export default class ContextPopup extends React.Component {
     }
   }
 
+  getColumnAvailibleToMove() {
+    const columnLists = this.props.columnList;
+    columnLists.filter((column, index) => {
+      if (column[0] === this.props.columnId) {
+        columnLists.splice(index, 1);
+      }
+      return true;
+    });
+    return columnLists;
+  }
+
   render() {
     return (
       <div>
@@ -37,32 +48,24 @@ export default class ContextPopup extends React.Component {
             Delete
           </MenuItem>
           <MenuItem divider />
-          <MenuItem
-            data={{
-              action: "move",
-              taskIndex: `${this.props.index}`,
-              taskId: `${this.props.id}`,
-              currentColumnId: `${this.props.columnId}`,
-              targetColumnId: "2",
-            }}
-            onClick={this.handleClick}
-            attributes={{ className: "custom-root" }}
-          >
-            Move to Column X
-          </MenuItem>
-          <MenuItem
-            data={{
-              action: "move",
-              taskIndex: `${this.props.index}`,
-              taskId: `${this.props.id}`,
-              currentColumnId: `${this.props.columnId}`,
-              targetColumnId: "3",
-            }}
-            onClick={this.handleClick}
-            attributes={{ className: "custom-root" }}
-          >
-            Move to Column Y
-          </MenuItem>
+          {this.getColumnAvailibleToMove().map((column, index) => {
+            return (
+              <MenuItem
+                key={index}
+                data={{
+                  action: "move",
+                  taskIndex: `${this.props.index}`,
+                  taskId: `${this.props.id}`,
+                  currentColumnId: `${this.props.columnId}`,
+                  targetColumnId: column[0],
+                }}
+                onClick={this.handleClick}
+                attributes={{ className: "custom-root" }}
+              >
+                {`Move to ${column[1]}`}
+              </MenuItem>
+            );
+          })}
         </ContextMenu>
       </div>
     );

@@ -42,11 +42,23 @@ export default class ColumnContainer extends React.Component {
     this.addTask = this.addTask.bind(this);
     this.deleteColumn = this.deleteColumn.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
-
   }
 
   closeModal() {
     this.setState({ showModal: false });
+  }
+
+  getColumnList() {
+    const columnList = [];
+
+    this.state.items.map((item) => {
+      const column = [];
+      column[0] = item.id;
+      column[1] = item.title;
+      columnList.push(column);
+      return true;
+    });
+    return columnList;
   }
 
   getTaskDetails(task) {
@@ -68,7 +80,6 @@ export default class ColumnContainer extends React.Component {
   }
 
   onDragEnd(result) {
-    console.log(result)
     if (!result.destination) {
       return;
     }
@@ -136,14 +147,14 @@ export default class ColumnContainer extends React.Component {
     this.setState((state) => ({ columns: newColumn, columnCount: this.state.columnCount + 1 }));
   }
 
-  deleteColumn(columnId){
+  deleteColumn(columnId) {
     const arrayCopy = this.state.items.slice();
-    for(let i=0;i<arrayCopy.length;i++){
-      if(arrayCopy[i].id===columnId){
-        arrayCopy.splice(i,1);
+    for (let i = 0; i < arrayCopy.length; i++) {
+      if (arrayCopy[i].id === columnId) {
+        arrayCopy.splice(i, 1);
       }
     }
-    this.setState({items:arrayCopy});
+    this.setState({ items: arrayCopy });
   }
 
   addTask(columnId) {
@@ -164,7 +175,7 @@ export default class ColumnContainer extends React.Component {
   deleteTask(taskId, columnId) {
     const newItems = [...this.state.items];
     newItems.filter((column, index) => {
-      if(column["id"] === columnId) {
+      if (column["id"] === columnId) {
         const taskIndex = newItems[index].tasks.findIndex((task) => task.id === taskId);
         newItems[index].tasks.splice(taskIndex, 1);
         this.setState({ items: newItems });
@@ -192,6 +203,7 @@ export default class ColumnContainer extends React.Component {
                         title={item.title}
                         tasks={item.tasks}
                         columnId={item.id}
+                        columnList={this.getColumnList()}
                         parentProvided={provided}
                         parentSnapshot={snapshot}
                         addTask={this.addTask}

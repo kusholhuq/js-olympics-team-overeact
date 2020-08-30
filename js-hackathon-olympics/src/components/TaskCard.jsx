@@ -65,6 +65,7 @@ export default class TaskCard extends React.Component {
                       id={item.id}
                       index={index}
                       columnId={this.props.columnId}
+                      columnList={this.props.columnList}
                       delete={this.props.deleteTask}
                       moveTo={this.props.moveTo}
                     />

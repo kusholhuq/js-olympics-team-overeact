@@ -40,6 +40,7 @@ export default class Column extends React.Component {
           <TaskCard
             tasks={tasks}
             columnId={columnId}
+            columnList={this.props.columnList}
             deleteTask={deleteTask}
             getTaskDetails={this.props.getTaskDetails}
             moveTo={this.props.moveTo}
