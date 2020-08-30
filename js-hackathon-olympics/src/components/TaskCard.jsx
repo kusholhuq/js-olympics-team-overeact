@@ -25,7 +25,6 @@ export default class TaskCard extends React.Component {
     this.state = {
       tasks: this.props.tasks
     }
-    this.handleClickItem = this.handleClickItem.bind(this)
     this.handleClickDelete = this.handleClickDelete.bind(this)
   }
 
@@ -62,7 +61,7 @@ export default class TaskCard extends React.Component {
                         title={item.title}
                         content={item.content}
                         changeItems={this.props.changeItems}
-                        
+
                       />
                         <button
                           className="btn btn-secondary"
