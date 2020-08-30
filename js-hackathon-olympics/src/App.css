@@ -76,8 +76,11 @@
 .add-column{
   height: 2rem;
   background-color: white;
-}
 
+}
+.zoom{
+  transition: all .2s ease-in-out;
+}
 .zoom:hover{
   transition: all ease-in-out .2s;
   color: rgb(144, 238, 144);
@@ -87,7 +90,12 @@
 
 .add-task{
   cursor: pointer;
+  transition: all ease-in-out .4s;
+}
+.add-task:hover{
+  transition: all ease-in-out .4s;
+  font-size:1.4rem;
 }
 .horizontal-scroll{
-  overflow:scroll;
+  overflow:auto;
 }

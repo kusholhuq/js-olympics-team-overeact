@@ -63,14 +63,14 @@ export default class TaskCard extends React.Component {
                         changeItems={this.props.changeItems}
 
                       />
-                        <button
-                          className="btn btn-secondary"
+                        <div
+                          className="details"
                           onClick={() => {
                             this.props.getTaskDetails(item);
                           }}
                         >
-                          Details
-                        </button>
+                          <i class="fas fa-search-plus"></i>
+                        </div>
                       </div>
                     </ContextMenuTrigger>
                     <ContextPopup
