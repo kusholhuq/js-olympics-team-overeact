@@ -37,7 +37,7 @@ export default class TaskCard extends React.Component {
               <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot) => (
                   <div>
-                    <ContextMenuTrigger id={item.id}>
+                    <ContextMenuTrigger id={item.id} holdToDisplay={500}>
                       <div
                         className="shadow-sm"
                         ref={provided.innerRef}
@@ -61,7 +61,13 @@ export default class TaskCard extends React.Component {
                         </button>
                       </div>
                     </ContextMenuTrigger>
-                    <ContextPopup id={item.id} columnId={this.props.columnId} delete={this.props.deleteTask} />
+                    <ContextPopup
+                      id={item.id}
+                      index={index}
+                      columnId={this.props.columnId}
+                      delete={this.props.deleteTask}
+                      moveTo={this.props.moveTo}
+                    />
                     {provided.placeholder}
                   </div>
                 )}

@@ -68,6 +68,7 @@ export default class ColumnContainer extends React.Component {
   }
 
   onDragEnd(result) {
+    console.log(result)
     if (!result.destination) {
       return;
     }
@@ -197,6 +198,7 @@ export default class ColumnContainer extends React.Component {
                         getTaskDetails={this.getTaskDetails}
                         deleteTask={this.deleteTask}
                         deleteColumn={this.deleteColumn}
+                        moveTo={this.onDragEnd}
                       />
                     )}
                   </Draggable>
@@ -211,7 +213,8 @@ export default class ColumnContainer extends React.Component {
           showModal={this.state.showModal}
           closeModal={this.closeModal}
           title={this.state.selectedTaskDetails.title}
-          description={this.state.selectedTaskDetails.description} />
+          description={this.state.selectedTaskDetails.description}
+        />
       </div>
     );
   }
