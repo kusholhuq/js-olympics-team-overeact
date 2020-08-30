@@ -16,8 +16,9 @@ export default class ColumnContainer extends React.Component {
       taskCount: 6,
       columnCount: 3,
       selectedTaskDetails: {
+        id: "",
         title: "",
-        description: "",
+        description: ""
       },
       items: defaultTask,
     };
@@ -66,6 +67,7 @@ export default class ColumnContainer extends React.Component {
   getTaskDetails(task) {
     this.setState({
       selectedTaskDetails: {
+        id: task.id,
         title: task.title,
         description: task.content,
       },
@@ -227,12 +229,16 @@ export default class ColumnContainer extends React.Component {
             )}
           </Droppable>
         </DragDropContext>
-        <TaskModal
-          showModal={this.state.showModal}
-          closeModal={this.closeModal}
-          title={this.state.selectedTaskDetails.title}
-          description={this.state.selectedTaskDetails.description}
-        />
+        {this.state.showModal
+          ? <TaskModal
+            closeModal={this.closeModal}
+            title={this.state.selectedTaskDetails.title}
+            description={this.state.selectedTaskDetails.description}
+            id={this.state.selectedTaskDetails.id}
+            changeItems={this.changeItems}
+          />
+          : null
+        }
       </div>
     );
   }

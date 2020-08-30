@@ -16,6 +16,20 @@ export default class Task extends React.Component{
     this.handleChange = this.handleChange.bind(this)
   }
 
+  componentDidUpdate(prevProps){
+    let newProp = null;
+    let key = null;
+    if (this.props.title !== prevProps.title){
+      key = 'title'
+      newProp = this.props.title
+      this.setState({ [key]: newProp })
+    } else if (this.props.content !== prevProps.content){
+      key = 'content'
+      newProp = this.props.content
+      this.setState({ [key]: newProp })
+    }
+  }
+
   editTaskTitle() {
     this.setState({ taskTitleEditing: true})
   }
