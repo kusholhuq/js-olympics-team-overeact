@@ -1,7 +1,9 @@
 import React from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
+import Task from './Task';
 import { ContextMenuTrigger } from "react-contextmenu";
 import ContextPopup from './ContextPopup'
+
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   background: isDragging ? "lightgreen" : "white",
@@ -20,6 +22,9 @@ const getListStyle = (isDraggingOver) => ({
 export default class TaskCard extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      tasks: this.props.tasks
+    }
     this.handleClickDelete = this.handleClickDelete.bind(this)
   }
 
@@ -45,12 +50,19 @@ export default class TaskCard extends React.Component {
                         {...provided.dragHandleProps}
                         style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
                         id={item.id}
+                        onClick={this.handleClickItem}
                       >
                         <button type="button" className="close" id={item.id} onClick={this.handleClickDelete}>
                           <span>&times;</span>
                         </button>
-                        <h5>{item.title}</h5>
-                        <p className="mb-1">{item.content}</p>
+                       <Task
+                        key={item.id}
+                        id = {item.id}
+                        title={item.title}
+                        content={item.content}
+                        changeItems={this.props.changeItems}
+
+                      />
                         <button
                           className="btn btn-secondary"
                           onClick={() => {
@@ -68,7 +80,8 @@ export default class TaskCard extends React.Component {
                       columnList={this.props.columnList}
                       delete={this.props.deleteTask}
                       moveTo={this.props.moveTo}
-                    />
+                       />
+
                     {provided.placeholder}
                   </div>
                 )}
