@@ -96,7 +96,7 @@
   transition: all ease-in-out .4s;
 }
 .add-task:hover{
-  transition: all ease-in-out .4s;
+  transition: all ease-in-out .2s;
   font-size:1.4rem;
 }
 .horizontal-scroll{
@@ -105,10 +105,58 @@
 .column-dimensions{
   width: 21rem;
   min-width: 21rem;
-  height: 40rem;
-  max-height: 40rem;
+  height: 85vh;
+  max-height: 85vh;
 }
 .vertical-scroll{
   overflow-y:scroll;
-  max-height: 33.5rem;
+  max-height: 72vh;
+}
+
+
+/* ----------- iPhone 6, 6S, 7 and 8 ----------- */
+
+/* Portrait and Landscape */
+@media only screen
+  and (min-device-width: 375px)
+  and (max-device-width: 667px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* Portrait */
+@media only screen
+  and (min-device-width: 375px)
+  and (max-device-width: 667px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+    .column-dimensions{
+  width: 13rem;
+  min-width: 13rem;
+  height: 85vh;
+  max-height: 85vh;
+}
+  .vertical-scroll{
+  overflow-y:scroll;
+  max-height: 70vh;
+}
+}
+
+/* Landscape */
+@media only screen
+  and (min-device-width: 375px)
+  and (max-device-width: 667px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) {
+
+    .column-dimensions{
+  width: 13rem;
+  min-width: 13rem;
+  height: 70vh;
+  max-height: 70vh;
+}
+.vertical-scroll{
+  overflow-y:scroll;
+  max-height: 40vh;
+}
 }
