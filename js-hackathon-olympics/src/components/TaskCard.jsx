@@ -34,6 +34,10 @@ export default class TaskCard extends React.Component {
     this.props.deleteTask(event.currentTarget.id, this.props.columnId);
   }
 
+  handleClickItem(event) {
+    console.log(event.currentTarget.id)
+  }
+
   render() {
     return (
       <Droppable droppableId={this.props.columnId} type={`droppableSubItem`}>
@@ -62,7 +66,7 @@ export default class TaskCard extends React.Component {
                         title={item.title}
                         content={item.content}
                         changeItems={this.props.changeItems}
-                        
+
                       />
                         <button
                           className="btn btn-secondary"
