@@ -12,7 +12,7 @@
   padding: 5px 0;
   pointer-events: none;
   text-align: left;
-  transition: opacity 250ms ease !important;
+  transition: opacity 100ms ease !important;
 }
 
 .react-contextmenu.react-contextmenu--visible {
@@ -63,9 +63,6 @@
   padding: 0;
 }
 
-.react-contextmenu-item.react-contextmenu-submenu > .react-contextmenu-item {
-}
-
 .react-contextmenu-item.react-contextmenu-submenu
   > .react-contextmenu-item:after {
   content: '▶';
@@ -81,12 +78,4 @@
 
 .custom-root {
   background-color: #fff;
-}
-
-.custom-divider {
-  background-color: #000;
-}
-
-.custom-selected {
-  background-color: #f00;
 }

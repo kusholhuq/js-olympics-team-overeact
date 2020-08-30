@@ -1,13 +1,6 @@
 import React from "react";
 import { ContextMenu, MenuItem, SubMenu } from "react-contextmenu";
 
-const attributes = {
-  className: "custom-root",
-  disabledClassName: "custom-disabled",
-  dividerClassName: "custom-divider",
-  selectedClassName: "custom-selected",
-};
-
 export default class ContextPopup extends React.Component {
   constructor(props) {
     super(props);
@@ -16,7 +9,7 @@ export default class ContextPopup extends React.Component {
 
   handleClick(event, data) {
     if (data.action === "delete") {
-      this.props.delete(this.props.id, this.props.columnId)
+      this.props.delete(this.props.id, this.props.columnId);
     }
   }
 
@@ -24,14 +17,14 @@ export default class ContextPopup extends React.Component {
     return (
       <div>
         <ContextMenu id={this.props.id}>
-          <MenuItem data={{ action: "delete" }} onClick={this.handleClick} attributes={attributes}>
+          <MenuItem data={{ action: "delete" }} onClick={this.handleClick} attributes={{ className: "custom-root" }}>
             Delete
           </MenuItem>
           <SubMenu title="Move to">
-            <MenuItem data={{ action: "move1" }} onClick={this.handleClick} attributes={attributes}>
+            <MenuItem data={{ action: "move1" }} onClick={this.handleClick} attributes={{ className: "custom-root" }}>
               Move to Column X
             </MenuItem>
-            <MenuItem data={{ action: "move2" }} onClick={this.handleClick} attributes={attributes}>
+            <MenuItem data={{ action: "move2" }} onClick={this.handleClick} attributes={{ className: "custom-root" }}>
               Move to Column Y
             </MenuItem>
           </SubMenu>
