@@ -46,7 +46,7 @@ export default class ColumnContainer extends React.Component {
       }
     }
     this.setState({ items: oldItems });
-    this.saveTaskDataToLoccalStorage();
+    this.saveTaskDataToLocalStorage();
   }
 
   closeModal() {
@@ -133,10 +133,10 @@ export default class ColumnContainer extends React.Component {
         this.setState({ items: newItems });
       }
     }
-    this.saveTaskDataToLoccalStorage();
+    this.saveTaskDataToLocalStorage();
   }
 
-  saveTaskDataToLoccalStorage() {
+  saveTaskDataToLocalStorage() {
     localStorage.setItem("team-overeact-task-data", JSON.stringify(this.state.items));
   }
 
@@ -159,7 +159,7 @@ export default class ColumnContainer extends React.Component {
     });
 
     this.setState((state) => ({ items: newColumn, columnCount: this.state.columnCount + 1 }));
-    this.saveTaskDataToLoccalStorage();
+    this.saveTaskDataToLocalStorage();
   }
 
   deleteColumn(columnId) {
@@ -170,7 +170,7 @@ export default class ColumnContainer extends React.Component {
       }
     }
     this.setState({ items: arrayCopy });
-    this.saveTaskDataToLoccalStorage();
+    this.saveTaskDataToLocalStorage();
   }
 
   addTask(columnId) {
@@ -185,7 +185,7 @@ export default class ColumnContainer extends React.Component {
       content: "Enter Description Here",
     });
     this.setState((state) => ({ items: columns, taskCount: this.state.taskCount + 1 }));
-    this.saveTaskDataToLoccalStorage();
+    this.saveTaskDataToLocalStorage();
   }
 
   deleteTask(taskId, columnId) {
@@ -199,7 +199,7 @@ export default class ColumnContainer extends React.Component {
       }
       return false;
     });
-    this.saveTaskDataToLoccalStorage();
+    this.saveTaskDataToLocalStorage();
   }
 
   render() {
