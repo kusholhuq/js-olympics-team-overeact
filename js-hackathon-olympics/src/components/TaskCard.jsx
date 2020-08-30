@@ -61,7 +61,7 @@ export default class TaskCard extends React.Component {
                         </button>
                       </div>
                     </ContextMenuTrigger>
-                    <ContextPopup id={item.id} />
+                    <ContextPopup id={item.id} columnId={this.props.columnId} delete={this.props.deleteTask} />
                     {provided.placeholder}
                   </div>
                 )}
