@@ -36,7 +36,7 @@ export default class Column extends React.Component {
     const { title, tasks, columnId, parentProvided, parentSnapshot, deleteTask } = this.props;
 
     return (
-      <div className="column-width vh-100 mx-3">
+      <div className="column-dimensions mx-3">
         <div
           className="shadow rounded"
           ref={parentProvided.innerRef}

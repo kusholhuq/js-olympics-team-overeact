@@ -37,7 +37,7 @@ export default class TaskCard extends React.Component {
     return (
       <Droppable droppableId={this.props.columnId} type={`droppableSubItem`}>
         {(provided, snapshot) => (
-          <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
+          <div className="vertical-scroll" ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
             {this.props.tasks.map((item, index) => (
               <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot) => (

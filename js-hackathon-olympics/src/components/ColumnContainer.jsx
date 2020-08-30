@@ -221,7 +221,7 @@ export default class ColumnContainer extends React.Component {
                     )}
                   </Draggable>
                 ))}
-                <div onClick={this.addColumn} className="add-column"><i className="fa fa-plus-circle fa-lg zoom mt-2" aria-hidden="true"></i></div>
+                <div onClick={this.addColumn} className="add-column"><i className="fa fa-plus-circle fa-lg zoom mt-2 mr-3" aria-hidden="true"></i></div>
                 {provided.placeholder}
               </div>
             )}

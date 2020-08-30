@@ -99,7 +99,13 @@
 .horizontal-scroll{
   overflow-x:scroll;
 }
-.column-width{
-  width: 20rem;
-  min-width: 18rem;
+.column-dimensions{
+  width: 21rem;
+  min-width: 21rem;
+  height: 38rem;
+  max-height: 38rem;
+}
+.vertical-scroll{
+  overflow-y:scroll;
+  max-height: 30rem;
 }
