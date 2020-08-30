@@ -35,7 +35,7 @@ export default class Column extends React.Component {
             <h4 className="pt-1 pb-2">{title}</h4>
           </header>
           <div className="d-flex justify-content-center">
-            <i onClick={() => this.props.addTask(this.props.id)} className="fas fa-plus"></i>
+            <i onClick={() => this.props.addTask(this.props.id)} className="fas fa-plus mb-2 add-task"></i>
           </div>
           <TaskCard
             tasks={tasks}
