@@ -58,3 +58,17 @@
 .h-10{
   height: 5%;
 }
+
+.header{
+  background-color: rgb(235, 235, 235);
+}
+
+.pac{
+  font-family: 'Pacifico', cursive;
+}
+
+.pink-hover:hover{
+  color:hotpink;
+  cursor: pointer;
+  transition: ease-in-out all .2s;
+}

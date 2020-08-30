@@ -1,6 +1,9 @@
 import React from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import Task from './Task';
+import { ContextMenuTrigger } from "react-contextmenu";
+import ContextPopup from './ContextPopup'
+
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   background: isDragging ? "lightgreen" : "white",
@@ -23,10 +26,12 @@ export default class TaskCard extends React.Component {
       tasks: this.props.tasks
     }
     this.handleClickItem = this.handleClickItem.bind(this)
+    this.handleClickDelete = this.handleClickDelete.bind(this)
   }
 
-  handleClickItem(event) {
-    console.log(event.currentTarget.id)
+  handleClickDelete(event) {
+    event.stopPropagation();
+    this.props.deleteTask(event.currentTarget.id, this.props.columnId);
   }
 
   render() {
@@ -38,26 +43,46 @@ export default class TaskCard extends React.Component {
               <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot) => (
                   <div>
-                    <div
-                      className="shadow-sm"
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
-                      id={item.id}
-                      onClick={this.handleClickItem}
-                    >
-                      <button type="button" className="close">
-                        <span>&times;</span>
-                      </button>
-                      <Task
+                    <ContextMenuTrigger id={item.id} holdToDisplay={500}>
+                      <div
+                        className="shadow-sm"
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
+                        id={item.id}
+                        onClick={this.handleClickItem}
+                      >
+                        <button type="button" className="close" id={item.id} onClick={this.handleClickDelete}>
+                          <span>&times;</span>
+                        </button>
+                       <Task
                         key={item.id}
                         id = {item.id}
                         title={item.title}
                         content={item.content}
                         changeItems={this.props.changeItems}
+                        
                       />
-                    </div>
+                        <button
+                          className="btn btn-secondary"
+                          onClick={() => {
+                            this.props.getTaskDetails(item);
+                          }}
+                        >
+                          Details
+                        </button>
+                      </div>
+                    </ContextMenuTrigger>
+                    <ContextPopup
+                      id={item.id}
+                      index={index}
+                      columnId={this.props.columnId}
+                      columnList={this.props.columnList}
+                      delete={this.props.deleteTask}
+                      moveTo={this.props.moveTo}
+                       />
+
                     {provided.placeholder}
                   </div>
                 )}

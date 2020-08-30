@@ -28,6 +28,8 @@ export default class ColumnContainer extends React.Component {
     this.addColumn = this.addColumn.bind(this)
     this.addTask = this.addTask.bind(this)
     this.changeItems = this.changeItems.bind(this)
+    this.deleteColumn = this.deleteColumn.bind(this);
+    this.deleteTask = this.deleteTask.bind(this);
   }
 
   changeItems(id, task){
@@ -48,11 +50,24 @@ export default class ColumnContainer extends React.Component {
     this.setState({ showModal: false });
   }
 
+  getColumnList() {
+    const columnList = [];
+
+    this.state.items.map((item) => {
+      const column = [];
+      column[0] = item.id;
+      column[1] = item.title;
+      columnList.push(column);
+      return true;
+    });
+    return columnList;
+  }
+
   getTaskDetails(task) {
     this.setState({
       selectedTaskDetails: {
         title: task.title,
-        description: task.description,
+        description: task.content,
       },
       showModal: true,
     });
@@ -136,6 +151,16 @@ export default class ColumnContainer extends React.Component {
     this.setState(state=>({items: newColumn, columnCount: this.state.columnCount+1}))
   }
 
+  deleteColumn(columnId) {
+    const arrayCopy = this.state.items.slice();
+    for (let i = 0; i < arrayCopy.length; i++) {
+      if (arrayCopy[i].id === columnId) {
+        arrayCopy.splice(i, 1);
+      }
+    }
+    this.setState({ items: arrayCopy });
+  }
+
   addTask(columnId) {
     const columns = this.state.items.slice()
     const column = columns.filter(col=>{
@@ -152,39 +177,63 @@ export default class ColumnContainer extends React.Component {
     this.setState(state=>({items: columns, taskCount: this.state.taskCount+1}))
   }
 
-  render() {
-      return (
-        <div className="container">
-          <DragDropContext onDragEnd={this.onDragEnd}>
-            <Droppable droppableId="droppable" type="droppableItem" direction="horizontal">
-              {(provided, snapshot) => (
-                <div
-                  className="d-flex flex-wrap justify-content-center"
-                  ref={provided.innerRef}
-                  style={getListStyle(snapshot.isDraggingOver)}
-                >
-                  {this.state.items.map((item, index) => (
-                    <Draggable key={item.id} draggableId={item.id} index={index}>
-                      {(provided, snapshot) => (
-                        <Column
-                          title={item.title}
-                          tasks={item.tasks}
-                          columnId={item.id}
-                          parentProvided={provided}
-                          parentSnapshot={snapshot}
-                          addTask = {this.addTask}
-                          changeItems = {this.changeItems}
-                        />
-                        )}
-                    </Draggable>
-                  ))}
-                  <button onClick={this.addColumn}>Add Column</button>
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
-        </div>
-      );
-    }
+  deleteTask(taskId, columnId) {
+    const newItems = [...this.state.items];
+    newItems.filter((column, index) => {
+      if (column["id"] === columnId) {
+        const taskIndex = newItems[index].tasks.findIndex((task) => task.id === taskId);
+        newItems[index].tasks.splice(taskIndex, 1);
+        this.setState({ items: newItems });
+        return true;
+      }
+      return false;
+    });
   }
+
+  render() {
+    return (
+      <div>
+        <DragDropContext onDragEnd={this.onDragEnd}>
+          <Droppable droppableId="droppable" type="droppableItem" mode="virtual" direction="horizontal">
+            {(provided, snapshot) => (
+              <div
+                className="d-flex flex-wrap justify-content-center"
+                ref={provided.innerRef}
+                style={getListStyle(snapshot.isDraggingOver)}
+              >
+                {this.state.items.map((item, index) => (
+                  <Draggable key={item.id} draggableId={item.id} index={index}>
+                    {(provided, snapshot) => (
+                      <Column
+                        title={item.title}
+                        tasks={item.tasks}
+                        columnId={item.id}
+                        columnList={this.getColumnList()}
+                        parentProvided={provided}
+                        parentSnapshot={snapshot}
+                        addTask={this.addTask}
+                        getTaskDetails={this.getTaskDetails}
+                        deleteTask={this.deleteTask}
+                        deleteColumn={this.deleteColumn}
+                        moveTo={this.onDragEnd}
+                        changeItems = {this.changeItems}
+                      />
+                    )}
+                  </Draggable>
+                ))}
+                <button onClick={this.addColumn}>Add Column</button>
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+        <TaskModal
+          showModal={this.state.showModal}
+          closeModal={this.closeModal}
+          title={this.state.selectedTaskDetails.title}
+          description={this.state.selectedTaskDetails.description}
+        />
+      </div>
+    );
+  }
+}
