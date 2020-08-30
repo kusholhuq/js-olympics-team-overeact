@@ -91,3 +91,7 @@
 .horizontal-scroll{
   overflow:scroll;
 }
+
+.greyBackground{
+  background-color: lightgray;
+}
