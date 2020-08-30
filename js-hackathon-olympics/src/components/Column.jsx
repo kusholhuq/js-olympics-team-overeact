@@ -61,9 +61,9 @@ export default class Column extends React.Component {
           }
           </header>
             <div className="d-flex justify-content-center">
-              <i onClick={()=>this.props.addTask(this.props.columnId)} className="fas fa-plus"></i>
+              <i onClick={()=>this.props.addTask(columnId)} className="fas fa-plus"></i>
             </div>
-          <TaskCard tasks={tasks} columnId={columnId} />
+          <TaskCard tasks={tasks} columnId={columnId} changeItems={this.props.changeItems} />
 
         </div>
         {parentProvided.placeholder}

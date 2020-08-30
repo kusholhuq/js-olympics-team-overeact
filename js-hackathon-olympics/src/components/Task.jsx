@@ -24,7 +24,13 @@ export default class Task extends React.Component{
     this.setState({taskContentEditing: true})
   }
 
-  doneEditingTaskTitle() {
+  doneEditingTaskTitle(id, title, content) {
+    const task = {
+      id: id,
+      title: title,
+      content: content
+    }
+    this.props.changeItems(id, task)
     this.setState({ taskTitleEditing: false })
   }
 
@@ -49,9 +55,9 @@ export default class Task extends React.Component{
                   value={this.state.title}
                   onChange={this.handleChange}
                 />
-                <button onClick={() => this.doneEditingTaskTitle()}>Done</button>
+                <button onClick={() => this.doneEditingTaskTitle(this.props.id, this.state.title, this.state.content)}>Done</button>
               </div>
-            : <h6 onClick={this.editTaskInputs}>{this.state.title}</h6>
+            : <h6 onClick={this.editTaskTitle}>{this.state.title}</h6>
         }
         {
           this.state.taskContentEditing

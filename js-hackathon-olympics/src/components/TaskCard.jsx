@@ -34,7 +34,7 @@ export default class TaskCard extends React.Component {
       <Droppable droppableId={this.props.columnId} type={`droppableSubItem`}>
         {(provided, snapshot) => (
           <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
-            {this.state.tasks.map((item, index) => (
+            {this.props.tasks.map((item, index) => (
               <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot) => (
                   <div>
@@ -52,8 +52,10 @@ export default class TaskCard extends React.Component {
                       </button>
                       <Task
                         key={item.id}
+                        id = {item.id}
                         title={item.title}
                         content={item.content}
+                        changeItems={this.props.changeItems}
                       />
                     </div>
                     {provided.placeholder}

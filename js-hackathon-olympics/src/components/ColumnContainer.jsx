@@ -27,6 +27,34 @@ export default class ColumnContainer extends React.Component {
     this.onDragEnd = this.onDragEnd.bind(this);
     this.addColumn = this.addColumn.bind(this)
     this.addTask = this.addTask.bind(this)
+    this.changeItems = this.changeItems.bind(this)
+  }
+
+  changeItems(id, task){
+    const oldItems = this.state.items.slice();
+    let changedTask;
+    for (let i = 0; i<oldItems.length; i++){
+      for (let inc =0; inc<oldItems[i].tasks.length; inc++){
+        if (id===oldItems[i].tasks[inc].id){
+           oldItems[i].tasks[inc] = task
+        }
+      }
+    }
+    this.setState({
+      items: oldItems
+    })
+    console.log(changedTask)
+    console.log(task)
+    console.log(oldItems)
+
+
+    // const changedTask = oldItems.filter((item => {
+    //   item.task.filter(task => {
+    //     return task.id === id;
+    //   })
+    // }))
+    // console.log(task)
+    // console.log(changedTask)
   }
 
   closeModal() {
@@ -158,6 +186,7 @@ export default class ColumnContainer extends React.Component {
                           parentProvided={provided}
                           parentSnapshot={snapshot}
                           addTask = {this.addTask}
+                          changeItems = {this.changeItems}
                         />
                         )}
                     </Draggable>
