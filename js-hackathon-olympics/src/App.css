@@ -61,6 +61,9 @@
 
 .header{
   background-color: rgb(235, 235, 235);
+  top:0;
+  left:0;
+  right:0;
 }
 
 .pac{
@@ -102,10 +105,10 @@
 .column-dimensions{
   width: 21rem;
   min-width: 21rem;
-  height: 38rem;
-  max-height: 38rem;
+  height: 40rem;
+  max-height: 40rem;
 }
 .vertical-scroll{
   overflow-y:scroll;
-  max-height: 30rem;
+  max-height: 33.5rem;
 }

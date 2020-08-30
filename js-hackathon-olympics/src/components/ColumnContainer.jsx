@@ -197,7 +197,7 @@ export default class ColumnContainer extends React.Component {
           <Droppable droppableId="droppable" type="droppableItem" mode="virtual" direction="horizontal">
             {(provided, snapshot) => (
               <div
-                className="d-flex horizontal-scroll"
+                className="d-flex horizontal-scroll mt-5 pt-5"
                 ref={provided.innerRef}
                 style={getListStyle(snapshot.isDraggingOver)}
               >
