@@ -1,6 +1,6 @@
 import React from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
-import EditableLabel from 'react-inline-editing';
+import Task from './Task';
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   background: isDragging ? "lightgreen" : "white",
@@ -19,6 +19,9 @@ const getListStyle = (isDraggingOver) => ({
 export default class TaskCard extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      tasks: this.props.tasks
+    }
     this.handleClickItem = this.handleClickItem.bind(this)
   }
 
@@ -31,7 +34,7 @@ export default class TaskCard extends React.Component {
       <Droppable droppableId={this.props.columnId} type={`droppableSubItem`}>
         {(provided, snapshot) => (
           <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
-            {this.props.tasks.map((item, index) => (
+            {this.state.tasks.map((item, index) => (
               <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot) => (
                   <div>
@@ -47,27 +50,10 @@ export default class TaskCard extends React.Component {
                       <button type="button" className="close">
                         <span>&times;</span>
                       </button>
-                      <EditableLabel text={item.title}
-                        labelClassName='myLabelClass'
-                        inputClassName='myInputClass'
-                        inputWidth='80%'
-                        inputHeight='25px'
-                        inputMaxLength={50}
-                        labelFontWeight='bold'
-                        inputFontWeight='bold'
-                        onFocus={this.props._handleFocus}
-                        onFocusOut={this.props._handleFocusOut}
-                      />
-                      <EditableLabel text={item.content}
-                        labelClassName='myLabelClass'
-                        inputClassName='myInputClass'
-                        inputWidth='100%'
-                        inputHeight='25px'
-                        inputMaxLength={50}
-                        labelFontWeight=''
-                        inputFontWeight='bold'
-                        onFocus={this.props._handleFocus}
-                        onFocusOut={this.props._handleFocusOut}
+                      <Task
+                        key={item.id}
+                        title={item.title}
+                        content={item.content}
                       />
                     </div>
                     {provided.placeholder}

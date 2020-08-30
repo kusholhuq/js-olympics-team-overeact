@@ -1,6 +1,5 @@
 import React from "react";
 import TaskCard from "./TaskCard";
-import EditableLabel from 'react-inline-editing';
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   background: isDragging ? "lightgreen" : "lightblue",
@@ -10,11 +9,31 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 export default class Column extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      columnEditing: false,
+      title: this.props.title,
+      tasks: this.props.tasks,
+      columnId: this.props.columnId
+    };
+    this.editColInputs = this.editColInputs.bind(this)
+    this.doneEditingCol = this.doneEditingCol.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  editColInputs() {
+    this.setState({ columnEditing: true })
+  }
+
+  doneEditingCol() {
+    this.setState({ columnEditing: false })
+  }
+
+  handleChange(event) {
+    this.setState({ [event.target.id]: event.target.value });
   }
 
   render() {
-    const { title, tasks, columnId, parentProvided, parentSnapshot, addTask, _handleFocus, _handleFocusOut } = this.props;
+    const { title, tasks, columnId, parentProvided, parentSnapshot } = this.props;
 
     return (
 
@@ -27,23 +46,24 @@ export default class Column extends React.Component {
         >
           <header className="mx-0 w-100 d-flex justify-content-center" {...parentProvided.dragHandleProps}>
 
-            <EditableLabel text={title}
-              labelClassName='myLabelClass'
-              inputClassName='myInputClass'
-              inputWidth='200px'
-              inputHeight='25px'
-              inputMaxLength= {50}
-              labelFontWeight='bold'
-              inputFontWeight='bold'
-              onFocus={_handleFocus}
-              onFocusOut={_handleFocusOut}
-            />
-
+          {this.state.columnEditing
+              ? <div>
+                  <input
+                  id="title"
+                  type="text"
+                  className="w-100 border-noborder"
+                  value={this.state.title}
+                  onChange={this.handleChange}
+                  />
+                  <button onClick={()=>this.doneEditingCol()}>Done</button>
+                 </div>
+              : <h4 className="pt-3 pb-2" onClick={this.editColInputs}>{this.state.title}</h4>
+          }
           </header>
             <div className="d-flex justify-content-center">
-              <i onClick={()=>addTask(this.props.columnId)} className="fas fa-plus"></i>
+              <i onClick={()=>this.props.addTask(this.props.columnId)} className="fas fa-plus"></i>
             </div>
-          <TaskCard tasks={tasks} columnId={columnId} _handleFocus={_handleFocus} _handleFocusOut={_handleFocusOut}  />
+          <TaskCard tasks={tasks} columnId={columnId} />
 
         </div>
         {parentProvided.placeholder}
