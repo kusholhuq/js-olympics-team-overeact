@@ -36,7 +36,7 @@ export default class Column extends React.Component {
     const { title, tasks, columnId, parentProvided, parentSnapshot, deleteTask } = this.props;
 
     return (
-      <div className="w-25 vh-100 mx-3">
+      <div className="column-width vh-100 mx-3">
         <div
           className="shadow rounded"
           ref={parentProvided.innerRef}
@@ -70,9 +70,9 @@ export default class Column extends React.Component {
             <div className="d-flex justify-content-center">
               <i onClick={()=>this.props.addTask(columnId)} className="fas fa-plus mb-2 add-task"></i>
             </div>
-          <TaskCard 
-            tasks={tasks} 
-            columnId={columnId} 
+          <TaskCard
+            tasks={tasks}
+            columnId={columnId}
             changeItems={this.props.changeItems}
             columnList={this.props.columnList}
             deleteTask={deleteTask}

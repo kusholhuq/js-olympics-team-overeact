@@ -69,7 +69,7 @@ export default class TaskCard extends React.Component {
                             this.props.getTaskDetails(item);
                           }}
                         >
-                          <i class="fas fa-search-plus"></i>
+                          <i className="fas fa-search-plus"></i>
                         </div>
                       </div>
                     </ContextMenuTrigger>
