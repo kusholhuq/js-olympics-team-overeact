@@ -129,7 +129,29 @@
 .jason{
   background-image: url(./images/j.jpg)
 }
+.demo{
+  background-image: url(./images/demosmaller.gif);
+  width:40vw;
+  height: 35vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.custom{
 
+  background-color:white;
+  color: black;
+  border-radius: 15px;
+  border: 2px solid rgb(97, 218, 251);
+  transition: all ease-in-out .4s;
+}
+.custom:hover{
+  background-color: rgb(97, 218, 251);
+  transition: all ease-in-out .4s;
+}
+.our-app{
+  width: 40vw;
+}
 /* ----------- iPhone 6, 6S, 7 and 8 ----------- */
 
 /* Portrait and Landscape */
