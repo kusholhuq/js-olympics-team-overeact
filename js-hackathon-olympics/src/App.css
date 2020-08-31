@@ -89,7 +89,7 @@
 }
 .help:hover{
   transition: all ease-in-out .2s;
-  color: lightseagreen;
+  color: rgb(97, 218, 251);
   font-size: 2rem;
   cursor: pointer;
 }
