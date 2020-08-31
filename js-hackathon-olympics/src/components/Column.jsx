@@ -29,7 +29,9 @@ export default class Column extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({ [event.target.id]: event.target.value });
+    const inputValue = event.target.value;
+    this.setState({ [event.target.id]: inputValue });
+    this.props.changeColumnTitle(this.props.columnId, inputValue);
   }
 
   render() {

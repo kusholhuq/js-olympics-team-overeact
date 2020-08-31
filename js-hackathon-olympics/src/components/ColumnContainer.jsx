@@ -31,6 +31,7 @@ export default class ColumnContainer extends React.Component {
     this.changeItems = this.changeItems.bind(this);
     this.deleteColumn = this.deleteColumn.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
+    this.changeColumnTitle = this.changeColumnTitle.bind(this);
   }
 
   componentDidMount() {
@@ -52,6 +53,18 @@ export default class ColumnContainer extends React.Component {
 
   closeModal() {
     this.setState({ showModal: false });
+  }
+
+  changeColumnTitle(columnId, newTitle) {
+    const newItems = [...this.state.items];
+    newItems.forEach((column) => {
+      if (column.id === columnId) {
+        column.title = newTitle;
+      }
+    });
+
+    this.setState({ items: newItems });
+    this.saveTaskDataToLocalStorage();
   }
 
   getColumnList() {
@@ -209,7 +222,6 @@ export default class ColumnContainer extends React.Component {
     if (!this.state.items) return <></>;
 
     return (
-
       <div>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable" type="droppableItem" mode="virtual" direction="horizontal">
@@ -235,11 +247,14 @@ export default class ColumnContainer extends React.Component {
                         deleteColumn={this.deleteColumn}
                         moveTo={this.onDragEnd}
                         changeItems={this.changeItems}
+                        changeColumnTitle={this.changeColumnTitle}
                       />
                     )}
                   </Draggable>
                 ))}
-                <div onClick={this.addColumn} className="add-column"><i className="fa fa-plus-circle fa-lg zoom mt-2 mr-3" aria-hidden="true"></i></div>
+                <div onClick={this.addColumn} className="add-column">
+                  <i className="fa fa-plus-circle fa-lg zoom mt-2 mr-3" aria-hidden="true"></i>
+                </div>
                 {provided.placeholder}
               </div>
             )}
