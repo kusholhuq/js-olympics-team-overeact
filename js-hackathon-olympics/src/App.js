@@ -22,12 +22,17 @@ class App extends React.Component {
   render(){
     return (
       <div>
-        <Header />
         {this.state.displayLanding
           ? <Landing
             handleDisplay={this.handleDisplay}
           />
-          : <ColumnContainer />
+          : <div>
+            <ColumnContainer />
+            <Header
+              handleDisplay={this.handleDisplay}
+            />
+          </div>
+
 
         }
       </div>
