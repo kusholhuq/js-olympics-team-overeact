@@ -55,22 +55,24 @@ export default class TaskCard extends React.Component {
                         <button type="button" className="close" id={item.id} onClick={this.handleClickDelete}>
                           <span>&times;</span>
                         </button>
-                       <Task
-                        key={item.id}
-                        id = {item.id}
-                        title={item.title}
-                        content={item.content}
-                        changeItems={this.props.changeItems}
-
-                      />
-                        <button
-                          className="btn btn-secondary"
-                          onClick={() => {
-                            this.props.getTaskDetails(item);
-                          }}
-                        >
-                          Details
-                        </button>
+                        <Task
+                          key={item.id}
+                          id={item.id}
+                          title={item.title}
+                          content={item.content}
+                          imageBase64String={item.imageBase64String}
+                          changeItems={this.props.changeItems}
+                        />
+                        <div className="d-flex justify-content-center">
+                          <button
+                            className="btn btn-secondary"
+                            onClick={() => {
+                              this.props.getTaskDetails(item);
+                            }}
+                          >
+                            Details
+                          </button>
+                        </div>
                       </div>
                     </ContextMenuTrigger>
                     <ContextPopup
@@ -80,8 +82,7 @@ export default class TaskCard extends React.Component {
                       columnList={this.props.columnList}
                       delete={this.props.deleteTask}
                       moveTo={this.props.moveTo}
-                       />
-
+                    />
                     {provided.placeholder}
                   </div>
                 )}

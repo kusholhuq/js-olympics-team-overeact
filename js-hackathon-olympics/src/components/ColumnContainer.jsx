@@ -18,7 +18,8 @@ export default class ColumnContainer extends React.Component {
       selectedTaskDetails: {
         id: "",
         title: "",
-        description: ""
+        description: "",
+        imageBase64String: "",
       },
       items: null,
     };
@@ -73,6 +74,7 @@ export default class ColumnContainer extends React.Component {
         id: task.id,
         title: task.title,
         description: task.content,
+        imageBase64String: task.imageBase64String,
       },
       showModal: true,
     });
@@ -245,16 +247,16 @@ export default class ColumnContainer extends React.Component {
             )}
           </Droppable>
         </DragDropContext>
-        {this.state.showModal
-          ? <TaskModal
+        {this.state.showModal ? (
+          <TaskModal
             closeModal={this.closeModal}
             title={this.state.selectedTaskDetails.title}
             description={this.state.selectedTaskDetails.description}
+            imageBase64String={this.state.selectedTaskDetails.imageBase64String}
             id={this.state.selectedTaskDetails.id}
             changeItems={this.changeItems}
           />
-          : null
-        }
+        ) : null}
       </div>
     );
   }
