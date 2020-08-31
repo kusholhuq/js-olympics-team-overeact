@@ -93,6 +93,18 @@
   font-size: 2rem;
   cursor: pointer;
 }
+.title-font{
+  font-size:7rem;
+}
+.mont{
+  font-family: Montserrat;
+}
+.blue{
+  color: rgb(97, 218, 251);
+}
+.light-grey{
+  background-color: rgb(248, 249, 250);
+}
 
 
 /* ----------- iPhone 6, 6S, 7 and 8 ----------- */
