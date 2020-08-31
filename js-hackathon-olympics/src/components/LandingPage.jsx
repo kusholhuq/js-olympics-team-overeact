@@ -15,15 +15,15 @@ export default function Landing(props) {
                 <div className='circle nathan m-2'>
                 </div>
               </a>
-              <p className='text-center mont'>Nathan</p>
+              <p className='text-center mont mt-2'>Nathan</p>
             </div>
             <div>
               <a href="https://www.linkedin.com/in/jasonkim-jk/" target="_blank"><div className='circle jason m-2'></div></a>
-              <p className='text-center mont'>Jason</p>
+              <p className='text-center mont mt-2'>Jason</p>
             </div>
             <div>
               <a href="https://www.linkedin.com/in/kushol-huq/" target="_blank"><div className='circle kushol m-2'></div></a>
-              <p className='text-center mont'>Kushol</p>
+              <p className='text-center mont mt-2'>Kushol</p>
             </div>
 
 
