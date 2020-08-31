@@ -20,14 +20,18 @@ export default class Task extends React.Component{
   componentDidUpdate(prevProps){
     let newProp = null;
     let key = null;
-    if (this.props.title !== prevProps.title){
-      key = 'title'
-      newProp = this.props.title
-      this.setState({ [key]: newProp })
-    } else if (this.props.content !== prevProps.content){
-      key = 'content'
-      newProp = this.props.content
-      this.setState({ [key]: newProp })
+    if (this.props.title !== prevProps.title) {
+      key = "title";
+      newProp = this.props.title;
+      this.setState({ [key]: newProp });
+    } else if (this.props.content !== prevProps.content) {
+      key = "content";
+      newProp = this.props.content;
+      this.setState({ [key]: newProp });
+    } else if (this.props.imageBase64String !== prevProps.imageBase64String) {
+      key = "imageBase64String";
+      newProp = this.props.imageBase64String;
+      this.setState({ [key]: newProp });
     }
   }
 
