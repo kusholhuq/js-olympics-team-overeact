@@ -17,6 +17,7 @@ export default class TaskModal extends React.Component {
     this.editTaskContent = this.editTaskContent.bind(this);
     this.doneEditingTaskContent = this.doneEditingTaskContent.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleClickDelete = this.handleClickDelete.bind(this);
     this.loadFile = this.loadFile.bind(this);
   }
 
@@ -62,6 +63,11 @@ export default class TaskModal extends React.Component {
     reader.readAsDataURL(fileUrl);
   }
 
+  handleClickDelete(event) {
+    this.setState({ imageBase64String: "" });
+    this.doneEditingTaskContent(this.props.id, this.state.title, this.state.content, "");
+  }
+
   handleChange(event) {
     if (event.target.id === "image") {
       if (event.target.files && event.target.files[0]) {
@@ -98,6 +104,9 @@ export default class TaskModal extends React.Component {
 
     const imageShow = (
       <div>
+        <button type="button" className="close pink-hover" id={this.props.id} onClick={this.handleClickDelete}>
+          <span>&times;</span>
+        </button>
         <img
           src={"data:image/png;base64," + this.state.imageBase64String}
           className="task-image rounded img-fluid img-thumbnail"
