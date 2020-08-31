@@ -9,10 +9,10 @@ export default function Landing(props) {
           <h1 className="pac title-font">Kanvas</h1>
           <h1 className="mont">by Team Ove<span className="blue">React</span></h1>
           <p className="mont">Get organized, and Stay ahead of the competition with our new Kanban Board!</p>
-          <div>
-            <img src="" alt=""/>
-            <img src="" alt=""/>
-            <img src="" alt=""/>
+          <div className='d-flex justify-content-around'>
+            <a href="https://www.linkedin.com/in/nathan-reitan/" target="_blank"><div className='circle nathan m-2'></div></a>
+            <a href="https://www.linkedin.com/in/jasonkim-jk/" target="_blank"><div className='circle jason m-2'></div></a>
+            <a href="https://www.linkedin.com/in/kushol-huq/" target="_blank"><div className='circle kushol m-2'></div></a>
           </div>
         </div>
 
