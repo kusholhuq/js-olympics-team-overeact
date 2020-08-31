@@ -94,6 +94,7 @@ export default class Task extends React.Component{
               onChange={this.handleChange}
             />
             <button
+              className="btn btn-info btn-sm"
               onClick={() =>
                 this.doneEditingTaskTitle(
                   this.props.id,
@@ -119,6 +120,7 @@ export default class Task extends React.Component{
               onChange={this.handleChange}
             />
             <button
+              className="btn btn-info btn-sm"
               onClick={() =>
                 this.doneEditingTaskContent(
                   this.props.id,
