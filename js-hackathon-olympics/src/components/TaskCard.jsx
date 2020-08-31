@@ -37,7 +37,7 @@ export default class TaskCard extends React.Component {
     return (
       <Droppable droppableId={this.props.columnId} type={`droppableSubItem`}>
         {(provided, snapshot) => (
-          <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
+          <div className="vertical-scroll" ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
             {this.props.tasks.map((item, index) => (
               <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot) => (
@@ -55,23 +55,21 @@ export default class TaskCard extends React.Component {
                         <button type="button" className="close" id={item.id} onClick={this.handleClickDelete}>
                           <span>&times;</span>
                         </button>
-                        <Task
-                          key={item.id}
-                          id={item.id}
-                          title={item.title}
-                          content={item.content}
-                          imageBase64String={item.imageBase64String}
-                          changeItems={this.props.changeItems}
-                        />
-                        <div className="d-flex justify-content-center">
-                          <button
-                            className="btn btn-secondary"
-                            onClick={() => {
-                              this.props.getTaskDetails(item);
-                            }}
-                          >
-                            Details
-                          </button>
+                       <Task
+                        key={item.id}
+                        id = {item.id}
+                        title={item.title}
+                        content={item.content}
+                        changeItems={this.props.changeItems}
+                        imageBase64String={item.imageBase64String}
+                      />
+                        <div
+                          className="details"
+                          onClick={() => {
+                            this.props.getTaskDetails(item);
+                          }}
+                        >
+                          <i className="fas fa-search-plus"></i>
                         </div>
                       </div>
                     </ContextMenuTrigger>

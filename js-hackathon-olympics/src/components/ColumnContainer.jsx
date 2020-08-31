@@ -1,6 +1,7 @@
 import React from "react";
 import TaskModal from "./TaskModal";
 import Column from "./Column";
+import Landing from './LandingPage'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { defaultTask } from "./DefaultTask";
 
@@ -12,6 +13,7 @@ export default class ColumnContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      displayLanding: true,
       showModal: false,
       taskCount: 6,
       columnCount: 3,
@@ -32,6 +34,11 @@ export default class ColumnContainer extends React.Component {
     this.changeItems = this.changeItems.bind(this);
     this.deleteColumn = this.deleteColumn.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
+    this.handleDisplay = this.handleDisplay.bind(this)
+  }
+
+  handleDisplay() {
+    this.displayLanding = !this.displayLanding
   }
 
   componentDidMount() {
@@ -210,12 +217,13 @@ export default class ColumnContainer extends React.Component {
     if (!this.state.items) return <></>;
 
     return (
+
       <div className="horizontal-scroll">
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable" type="droppableItem" mode="virtual" direction="horizontal">
             {(provided, snapshot) => (
               <div
-                className="d-flex flex-wrap justify-content-center"
+                className="d-flex horizontal-scroll mt-5 pt-5"
                 ref={provided.innerRef}
                 style={getListStyle(snapshot.isDraggingOver)}
               >
@@ -239,9 +247,7 @@ export default class ColumnContainer extends React.Component {
                     )}
                   </Draggable>
                 ))}
-                <div onClick={this.addColumn} className="add-column">
-                  <i className="fa fa-plus-circle fa-lg zoom" aria-hidden="true"></i>
-                </div>
+                <div onClick={this.addColumn} className="add-column"><i className="fa fa-plus-circle fa-lg zoom mt-2 mr-3" aria-hidden="true"></i></div>
                 {provided.placeholder}
               </div>
             )}
