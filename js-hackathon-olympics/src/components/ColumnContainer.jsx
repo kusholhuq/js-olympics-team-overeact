@@ -14,8 +14,6 @@ export default class ColumnContainer extends React.Component {
     this.state = {
       displayLanding: true,
       showModal: false,
-      taskCount: 1,
-      columnCount: 100103,
       selectedTaskDetails: {
         id: "",
         title: "",
@@ -158,12 +156,12 @@ export default class ColumnContainer extends React.Component {
     event.preventDefault();
     const newColumn = this.state.items.slice();
     newColumn.push({
-      id: `C${this.state.columnCount + 1}`,
+      id: `C${Date.now()}`,
       title: "New Column",
       tasks: [],
     });
 
-    this.setState((state) => ({ items: newColumn, columnCount: this.state.columnCount + 1 }));
+    this.setState((state) => ({ items: newColumn }));
     this.saveTaskDataToLocalStorage();
   }
 
@@ -186,10 +184,10 @@ export default class ColumnContainer extends React.Component {
 
     column[0].tasks.push({
       title: "Added Task",
-      id: (this.state.taskCount + 1).toString(),
+      id: `T${Date.now()}`,
       content: "Enter Description Here",
     });
-    this.setState((state) => ({ items: columns, taskCount: this.state.taskCount + 1 }));
+    this.setState((state) => ({ items: columns }));
     this.saveTaskDataToLocalStorage();
   }
 
