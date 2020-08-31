@@ -6,6 +6,7 @@ export default class Task extends React.Component{
     this.state={
       title: this.props.title,
       content: this.props.content,
+      imageBase64String: this.props.imageBase64String,
       taskTitleEditing: false,
       taskContentEditing: false
     }
@@ -38,22 +39,24 @@ export default class Task extends React.Component{
     this.setState({taskContentEditing: true})
   }
 
-  doneEditingTaskTitle(id, title, content) {
+  doneEditingTaskTitle(id, title, content, image) {
     const task = {
       id: id,
       title: title,
-      content: content
-    }
+      content: content,
+      imageBase64String: image,
+    };
     this.props.changeItems(id, task)
     this.setState({ taskTitleEditing: false })
   }
 
-  doneEditingTaskContent(id, title, content){
+  doneEditingTaskContent(id, title, content, image){
     const task = {
       id: id,
       title: title,
-      content: content
-    }
+      content: content,
+      imageBase64String: image,
+    };
     this.props.changeItems(id, task)
     this.setState({ taskTitleEditing: false })
     this.setState({taskContentEditing: false})
@@ -64,39 +67,72 @@ export default class Task extends React.Component{
   }
 
   render(){
-    return(
-      <div>
-        {
-          this.state.taskTitleEditing
-            ? <div>
-                <input
-                  name="title"
-                  type="text"
-                  className="w-100 border-noborder"
-                  value={this.state.title}
-                  onChange={this.handleChange}
-                />
-                <button onClick={() => this.doneEditingTaskTitle(this.props.id, this.state.title, this.state.content)}>Done</button>
-              </div>
-            : <h6 onClick={this.editTaskTitle}>{this.state.title}</h6>
-        }
-        {
-          this.state.taskContentEditing
-            ? <div>
-                <input
-                  name="content"
-                  type="text"
-                  className="w-100 border-noborder"
-                  value={this.state.content}
-                  onChange={this.handleChange}
-                />
-              <button onClick={() => this.doneEditingTaskContent(this.props.id, this.state.title, this.state.content)}>Done</button>
-              </div>
-            : <p onClick={this.editTaskContent}>{this.state.content}</p>
-        }
+    const imageShow = (
+      <div className="text-center">
+        <img
+          src={"data:image/png;base64," + this.state.imageBase64String}
+          className="task-image rounded img-fluid img-thumbnail mb-3 mx-auto"
+          alt={this.props.id}
+          style={{ maxHeight: "7rem", margin: "auto" }}
+        ></img>
       </div>
+    );
 
-    )
+    return (
+      <div>
+        {this.state.taskTitleEditing ? (
+          <div>
+            <input
+              name="title"
+              type="text"
+              className="w-100 border-noborder"
+              value={this.state.title}
+              onChange={this.handleChange}
+            />
+            <button
+              onClick={() =>
+                this.doneEditingTaskTitle(
+                  this.props.id,
+                  this.state.title,
+                  this.state.content,
+                  this.state.imageBase64String
+                )
+              }
+            >
+              Done
+            </button>
+          </div>
+        ) : (
+          <h6 onClick={this.editTaskTitle}>{this.state.title}</h6>
+        )}
+        {this.state.taskContentEditing ? (
+          <div>
+            <input
+              name="content"
+              type="text"
+              className="w-100 border-noborder"
+              value={this.state.content}
+              onChange={this.handleChange}
+            />
+            <button
+              onClick={() =>
+                this.doneEditingTaskContent(
+                  this.props.id,
+                  this.state.title,
+                  this.state.content,
+                  this.state.imageBase64String
+                )
+              }
+            >
+              Done
+            </button>
+          </div>
+        ) : (
+          <p onClick={this.editTaskContent}>{this.state.content}</p>
+        )}
+        {this.state.imageBase64String ? imageShow : <></>}
+      </div>
+    );
   }
 
 }

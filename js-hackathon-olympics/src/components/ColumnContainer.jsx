@@ -20,17 +20,18 @@ export default class ColumnContainer extends React.Component {
       selectedTaskDetails: {
         id: "",
         title: "",
-        description: ""
+        description: "",
+        imageBase64String: "",
       },
-      items: defaultTask,
+      items: null,
     };
     this.closeModal = this.closeModal.bind(this);
     this.getTaskDetails = this.getTaskDetails.bind(this);
     this.reorder = this.reorder.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
-    this.addColumn = this.addColumn.bind(this)
-    this.addTask = this.addTask.bind(this)
-    this.changeItems = this.changeItems.bind(this)
+    this.addColumn = this.addColumn.bind(this);
+    this.addTask = this.addTask.bind(this);
+    this.changeItems = this.changeItems.bind(this);
     this.deleteColumn = this.deleteColumn.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
     this.handleDisplay = this.handleDisplay.bind(this)
@@ -40,18 +41,21 @@ export default class ColumnContainer extends React.Component {
     this.displayLanding = !this.displayLanding
   }
 
-  changeItems(id, task){
+  componentDidMount() {
+    this.loadTaskDataFromLocalStorage();
+  }
+
+  changeItems(id, task) {
     const oldItems = this.state.items.slice();
-    for (let i = 0; i<oldItems.length; i++){
-      for (let inc =0; inc<oldItems[i].tasks.length; inc++){
-        if (id===oldItems[i].tasks[inc].id){
-           oldItems[i].tasks[inc] = task
+    for (let i = 0; i < oldItems.length; i++) {
+      for (let inc = 0; inc < oldItems[i].tasks.length; inc++) {
+        if (id === oldItems[i].tasks[inc].id) {
+          oldItems[i].tasks[inc] = task;
         }
       }
     }
-    this.setState({
-      items: oldItems
-    })
+    this.setState({ items: oldItems });
+    this.saveTaskDataToLocalStorage();
   }
 
   closeModal() {
@@ -77,6 +81,7 @@ export default class ColumnContainer extends React.Component {
         id: task.id,
         title: task.title,
         description: task.content,
+        imageBase64String: task.imageBase64String,
       },
       showModal: true,
     });
@@ -99,9 +104,7 @@ export default class ColumnContainer extends React.Component {
     if (result.type === "droppableItem") {
       const items = this.reorder(this.state.items, sourceIndex, destIndex);
 
-      this.setState({
-        items,
-      });
+      this.setState({ items });
     } else if (result.type === "droppableSubItem") {
       const itemSubItemMap = this.state.items.reduce((acc, item) => {
         acc[item.id] = item.tasks;
@@ -123,9 +126,7 @@ export default class ColumnContainer extends React.Component {
           }
           return item;
         });
-        this.setState({
-          items: newItems,
-        });
+        this.setState({ items: newItems });
       } else {
         let newSourceSubItems = [...sourceSubItems];
         const [draggedItem] = newSourceSubItems.splice(sourceIndex, 1);
@@ -140,24 +141,36 @@ export default class ColumnContainer extends React.Component {
           }
           return item;
         });
-        this.setState({
-          items: newItems,
-        });
+        this.setState({ items: newItems });
       }
+    }
+    this.saveTaskDataToLocalStorage();
+  }
+
+  saveTaskDataToLocalStorage() {
+    localStorage.setItem("team-overeact-task-data", JSON.stringify(this.state.items));
+  }
+
+  loadTaskDataFromLocalStorage() {
+    const taskData = JSON.parse(localStorage.getItem("team-overeact-task-data"));
+    if (window.localStorage && taskData) {
+      this.setState({ items: taskData });
+    } else {
+      this.setState({ items: defaultTask });
     }
   }
 
-  addColumn(event){
+  addColumn(event) {
     event.preventDefault();
-    const newColumn = this.state.items.slice()
-          newColumn.push({
-            id: (this.state.columnCount + 1).toString(),
-          title: "New Column",
-          tasks: [],
-        })
-        console.log(this.state.items)
-        console.log(defaultTask)
-    this.setState(state=>({items: newColumn, columnCount: this.state.columnCount+1}))
+    const newColumn = this.state.items.slice();
+    newColumn.push({
+      id: (this.state.columnCount + 1).toString(),
+      title: "New Column",
+      tasks: [],
+    });
+
+    this.setState((state) => ({ items: newColumn, columnCount: this.state.columnCount + 1 }));
+    this.saveTaskDataToLocalStorage();
   }
 
   deleteColumn(columnId) {
@@ -168,22 +181,22 @@ export default class ColumnContainer extends React.Component {
       }
     }
     this.setState({ items: arrayCopy });
+    this.saveTaskDataToLocalStorage();
   }
 
   addTask(columnId) {
-    const columns = this.state.items.slice()
-    const column = columns.filter(col=>{
-      return col.id === columnId
-    })
-    console.log(column)
-    console.log(column[0].tasks)
+    const columns = this.state.items.slice();
+    const column = columns.filter((col) => {
+      return col.id === columnId;
+    });
 
     column[0].tasks.push({
-      title: 'Added Task',
-      id: (this.state.taskCount +1).toString(),
-      content: 'Enter Description Here'
-    })
-    this.setState(state=>({items: columns, taskCount: this.state.taskCount+1}))
+      title: "Added Task",
+      id: (this.state.taskCount + 1).toString(),
+      content: "Enter Description Here",
+    });
+    this.setState((state) => ({ items: columns, taskCount: this.state.taskCount + 1 }));
+    this.saveTaskDataToLocalStorage();
   }
 
   deleteTask(taskId, columnId) {
@@ -197,9 +210,12 @@ export default class ColumnContainer extends React.Component {
       }
       return false;
     });
+    this.saveTaskDataToLocalStorage();
   }
 
   render() {
+    if (!this.state.items) return <></>;
+
     return (
 
       <div className="horizontal-scroll">
@@ -226,7 +242,7 @@ export default class ColumnContainer extends React.Component {
                         deleteTask={this.deleteTask}
                         deleteColumn={this.deleteColumn}
                         moveTo={this.onDragEnd}
-                        changeItems = {this.changeItems}
+                        changeItems={this.changeItems}
                       />
                     )}
                   </Draggable>
@@ -237,16 +253,16 @@ export default class ColumnContainer extends React.Component {
             )}
           </Droppable>
         </DragDropContext>
-        {this.state.showModal
-          ? <TaskModal
+        {this.state.showModal ? (
+          <TaskModal
             closeModal={this.closeModal}
             title={this.state.selectedTaskDetails.title}
             description={this.state.selectedTaskDetails.description}
+            imageBase64String={this.state.selectedTaskDetails.imageBase64String}
             id={this.state.selectedTaskDetails.id}
             changeItems={this.changeItems}
           />
-          : null
-        }
+        ) : null}
       </div>
     );
   }

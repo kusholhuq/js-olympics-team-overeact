@@ -61,7 +61,7 @@ export default class TaskCard extends React.Component {
                         title={item.title}
                         content={item.content}
                         changeItems={this.props.changeItems}
-
+                        imageBase64String={item.imageBase64String}
                       />
                         <div
                           className="details"
@@ -80,8 +80,7 @@ export default class TaskCard extends React.Component {
                       columnList={this.props.columnList}
                       delete={this.props.deleteTask}
                       moveTo={this.props.moveTo}
-                       />
-
+                    />
                     {provided.placeholder}
                   </div>
                 )}
