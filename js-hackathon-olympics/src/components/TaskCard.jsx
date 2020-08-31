@@ -52,17 +52,22 @@ export default class TaskCard extends React.Component {
                         id={item.id}
                         onClick={this.handleClickItem}
                       >
-                        <button type="button" className="close" id={item.id} onClick={this.handleClickDelete}>
+                        <button
+                          type="button"
+                          className="close pink-hover"
+                          id={item.id}
+                          onClick={this.handleClickDelete}
+                        >
                           <span>&times;</span>
                         </button>
-                       <Task
-                        key={item.id}
-                        id = {item.id}
-                        title={item.title}
-                        content={item.content}
-                        changeItems={this.props.changeItems}
-                        imageBase64String={item.imageBase64String}
-                      />
+                        <Task
+                          key={item.id}
+                          id={item.id}
+                          title={item.title}
+                          content={item.content}
+                          changeItems={this.props.changeItems}
+                          imageBase64String={item.imageBase64String}
+                        />
                         <div
                           className="details"
                           onClick={() => {
