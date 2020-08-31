@@ -25,9 +25,6 @@ export default function Landing(props) {
               <a href="https://www.linkedin.com/in/kushol-huq/" target="_blank"><div className='circle kushol m-2'></div></a>
               <p className='text-center mont mt-2'>Kushol</p>
             </div>
-
-
-
           </div>
           <div className=''>
             <h4 className='mont mt-3'>Give our Kanban board a test drive by clicking the button below</h4>
