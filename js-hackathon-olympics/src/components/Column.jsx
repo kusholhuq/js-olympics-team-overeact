@@ -29,11 +29,13 @@ export default class Column extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({ [event.target.id]: event.target.value });
+    const inputValue = event.target.value;
+    this.setState({ [event.target.id]: inputValue });
+    this.props.changeColumnTitle(this.props.columnId, inputValue);
   }
 
   render() {
-    const { title, tasks, columnId, parentProvided, parentSnapshot, deleteTask } = this.props;
+    const { tasks, columnId, parentProvided, parentSnapshot, deleteTask } = this.props;
 
     return (
       <div className="column-dimensions mx-3">
@@ -52,24 +54,28 @@ export default class Column extends React.Component {
             ></i>
           </div>
           <header className="mx-0 w-100 d-flex justify-content-center" {...parentProvided.dragHandleProps}>
-
-          {this.state.columnEditing
-              ? <div>
-                  <input
+            {this.state.columnEditing ? (
+              <div>
+                <input
                   id="title"
                   type="text"
                   className="w-100 border-noborder"
                   value={this.state.title}
                   onChange={this.handleChange}
-                  />
-                  <button onClick={()=>this.doneEditingCol()}>Done</button>
-                 </div>
-              : <h4 className="pt-1 pb-2" onClick={this.editColInputs}>{this.state.title}</h4>
-          }
+                />
+                <button className="btn btn-secondary btn-sm" onClick={() => this.doneEditingCol()}>
+                  Done
+                </button>
+              </div>
+            ) : (
+              <h4 className="pt-1 pb-2" onClick={this.editColInputs}>
+                {this.state.title}
+              </h4>
+            )}
           </header>
-            <div className="d-flex justify-content-center">
-              <i onClick={()=>this.props.addTask(columnId)} className="fas fa-plus mb-2 add-task"></i>
-            </div>
+          <div className="d-flex justify-content-center">
+            <i onClick={() => this.props.addTask(columnId)} className="fas fa-plus mb-2 add-task"></i>
+          </div>
           <TaskCard
             tasks={tasks}
             columnId={columnId}
@@ -78,7 +84,7 @@ export default class Column extends React.Component {
             deleteTask={deleteTask}
             getTaskDetails={this.props.getTaskDetails}
             moveTo={this.props.moveTo}
-            />
+          />
         </div>
         {parentProvided.placeholder}
       </div>

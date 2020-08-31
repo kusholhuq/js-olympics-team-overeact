@@ -1,7 +1,6 @@
 import React from "react";
 import TaskModal from "./TaskModal";
 import Column from "./Column";
-import Landing from './LandingPage'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { defaultTask } from "./DefaultTask";
 
@@ -15,8 +14,6 @@ export default class ColumnContainer extends React.Component {
     this.state = {
       displayLanding: true,
       showModal: false,
-      taskCount: 1,
-      columnCount: 100103,
       selectedTaskDetails: {
         id: "",
         title: "",
@@ -34,11 +31,7 @@ export default class ColumnContainer extends React.Component {
     this.changeItems = this.changeItems.bind(this);
     this.deleteColumn = this.deleteColumn.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
-    this.handleDisplay = this.handleDisplay.bind(this)
-  }
-
-  handleDisplay() {
-    this.displayLanding = !this.displayLanding
+    this.changeColumnTitle = this.changeColumnTitle.bind(this);
   }
 
   componentDidMount() {
@@ -60,6 +53,18 @@ export default class ColumnContainer extends React.Component {
 
   closeModal() {
     this.setState({ showModal: false });
+  }
+
+  changeColumnTitle(columnId, newTitle) {
+    const newItems = [...this.state.items];
+    newItems.forEach((column) => {
+      if (column.id === columnId) {
+        column.title = newTitle;
+      }
+    });
+
+    this.setState({ items: newItems });
+    this.saveTaskDataToLocalStorage();
   }
 
   getColumnList() {
@@ -164,12 +169,12 @@ export default class ColumnContainer extends React.Component {
     event.preventDefault();
     const newColumn = this.state.items.slice();
     newColumn.push({
-      id: `C${this.state.columnCount + 1}`,
+      id: `C${Date.now()}`,
       title: "New Column",
       tasks: [],
     });
 
-    this.setState((state) => ({ items: newColumn, columnCount: this.state.columnCount + 1 }));
+    this.setState((state) => ({ items: newColumn }));
     this.saveTaskDataToLocalStorage();
   }
 
@@ -192,10 +197,10 @@ export default class ColumnContainer extends React.Component {
 
     column[0].tasks.push({
       title: "Added Task",
-      id: (this.state.taskCount + 1).toString(),
+      id: `T${Date.now()}`,
       content: "Enter Description Here",
     });
-    this.setState((state) => ({ items: columns, taskCount: this.state.taskCount + 1 }));
+    this.setState((state) => ({ items: columns }));
     this.saveTaskDataToLocalStorage();
   }
 
@@ -217,7 +222,6 @@ export default class ColumnContainer extends React.Component {
     if (!this.state.items) return <></>;
 
     return (
-
       <div>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable" type="droppableItem" mode="virtual" direction="horizontal">
@@ -243,11 +247,14 @@ export default class ColumnContainer extends React.Component {
                         deleteColumn={this.deleteColumn}
                         moveTo={this.onDragEnd}
                         changeItems={this.changeItems}
+                        changeColumnTitle={this.changeColumnTitle}
                       />
                     )}
                   </Draggable>
                 ))}
-                <div onClick={this.addColumn} className="add-column"><i className="fa fa-plus-circle fa-lg zoom mt-2 mr-3" aria-hidden="true"></i></div>
+                <div onClick={this.addColumn} className="add-column">
+                  <i className="fa fa-plus-circle fa-lg zoom mt-2 mr-3" aria-hidden="true"></i>
+                </div>
                 {provided.placeholder}
               </div>
             )}

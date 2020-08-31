@@ -8,7 +8,6 @@ export default class TaskModal extends React.Component {
       title: this.props.title,
       content: this.props.description,
       imageBase64String: this.props.imageBase64String,
-      image: "",
       taskTitleEditing: false,
       taskContentEditing: false,
     };
@@ -73,8 +72,9 @@ export default class TaskModal extends React.Component {
       if (event.target.files && event.target.files[0]) {
         this.loadFile(event.target.files[0]);
       }
+    } else {
+      this.setState({ [event.target.name]: event.target.value });
     }
-    this.setState({ [event.target.name]: event.target.value });
   }
 
   render() {
@@ -92,11 +92,6 @@ export default class TaskModal extends React.Component {
           />
           <label className="custom-file-label" htmlFor="image">
             Choose Image
-            <p className="mt-1">
-              <small>
-                <em>{this.state.image}</em>
-              </small>
-            </p>
           </label>
         </div>
       </div>
