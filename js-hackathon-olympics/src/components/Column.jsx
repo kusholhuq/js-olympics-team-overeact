@@ -33,7 +33,7 @@ export default class Column extends React.Component {
   }
 
   render() {
-    const { title, tasks, columnId, parentProvided, parentSnapshot, deleteTask } = this.props;
+    const { tasks, columnId, parentProvided, parentSnapshot, deleteTask } = this.props;
 
     return (
       <div className="column-dimensions mx-3">
