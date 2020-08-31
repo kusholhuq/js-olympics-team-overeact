@@ -15,8 +15,8 @@ export default class ColumnContainer extends React.Component {
     this.state = {
       displayLanding: true,
       showModal: false,
-      taskCount: 6,
-      columnCount: 3,
+      taskCount: 1,
+      columnCount: 100103,
       selectedTaskDetails: {
         id: "",
         title: "",
@@ -164,7 +164,7 @@ export default class ColumnContainer extends React.Component {
     event.preventDefault();
     const newColumn = this.state.items.slice();
     newColumn.push({
-      id: (this.state.columnCount + 1).toString(),
+      id: `C${this.state.columnCount + 1}`,
       title: "New Column",
       tasks: [],
     });
