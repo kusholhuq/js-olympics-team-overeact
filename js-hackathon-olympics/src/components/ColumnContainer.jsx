@@ -218,7 +218,7 @@ export default class ColumnContainer extends React.Component {
 
     return (
 
-      <div className="horizontal-scroll">
+      <div className="light-grey">
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable" type="droppableItem" mode="virtual" direction="horizontal">
             {(provided, snapshot) => (
